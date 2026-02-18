@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Dumbbell } from "lucide-react";
 
 export const Route = createFileRoute("/")({ component: App });
 
@@ -8,8 +9,17 @@ function App() {
       <div className="mx-auto flex w-full max-w-5xl flex-col px-6 py-12 md:px-10 md:py-16">
         <header className="mb-16 flex items-center justify-between">
           <div className="inline-flex items-center gap-3">
-            <div className="size-10 rounded-xl bg-sky-500/20 ring-1 ring-sky-300/30" />
-            <p className="text-lg font-semibold tracking-tight">TanStack Jacked</p>
+            <div className="inline-flex size-11 items-center justify-center rounded-xl border border-emerald-300/30 bg-emerald-500/10 text-emerald-200">
+              <Dumbbell className="size-5" aria-hidden="true" />
+            </div>
+            <div>
+              <p className="text-2xl font-extrabold leading-none tracking-tight text-white md:text-3xl">
+                TanStack Jacked
+              </p>
+              <p className="mt-1 text-xs font-medium uppercase tracking-[0.18em] text-slate-400">
+                Workout Tracker
+              </p>
+            </div>
           </div>
         </header>
 
