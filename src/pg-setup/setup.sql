@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS workout_segment_exercise (
   id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   workout_segment_id INT REFERENCES workout_segment(id),
   exercise_order INT,
-  exercise muscle_group[],
+  exercise_id INT REFERENCES exercises(id),
   reps INT
 );
 CREATE INDEX IF NOT EXISTS idx_workout_segment_exercise_segment_id_exercise_order
