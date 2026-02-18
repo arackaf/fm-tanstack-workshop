@@ -9,7 +9,7 @@ function App() {
       <div className="mx-auto flex w-full max-w-5xl flex-col px-6 py-12 md:px-10 md:py-16">
         <header className="mb-16 flex items-center justify-between">
           <div className="inline-flex items-center gap-3">
-            <div className="inline-flex size-11 items-center justify-center rounded-xl border border-amber-300/30 bg-amber-500/10 text-amber-200">
+            <div className="inline-flex size-11 items-center justify-center rounded-xl border border-rose-300/30 bg-rose-500/10 text-rose-200">
               <Dumbbell className="size-5" aria-hidden="true" />
             </div>
             <div>
@@ -25,7 +25,7 @@ function App() {
 
         <section className="grid gap-10 md:grid-cols-[1.1fr_0.9fr] md:items-center">
           <div className="space-y-6">
-            <p className="inline-flex rounded-full border border-amber-300/30 bg-amber-500/10 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-amber-200">
+            <p className="inline-flex rounded-full border border-rose-300/30 bg-rose-500/10 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-rose-200">
               Train smart. Track everything.
             </p>
             <h1 className="text-4xl font-bold leading-tight tracking-tight text-white md:text-6xl">Build strength The TanStack Way</h1>
