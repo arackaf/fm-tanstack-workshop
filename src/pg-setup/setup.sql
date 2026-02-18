@@ -1,0 +1,11 @@
+CREATE TABLE IF NOT EXISTS users (
+  id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  username VARCHAR(250) NOT NULL,
+  password VARCHAR(250) NOT NULL,
+  display_name VARCHAR(250) NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  UNIQUE (username)
+);
+
+CREATE INDEX IF NOT EXISTS idx_users_username ON users (username);
