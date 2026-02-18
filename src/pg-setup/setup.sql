@@ -7,3 +7,11 @@ CREATE TABLE IF NOT EXISTS users (
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   UNIQUE (username)
 );
+
+CREATE TABLE IF NOT EXISTS exercises (
+  id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  name VARCHAR(150),
+  description TEXT,
+  muscle_group TEXT,
+  is_compound BOOL
+);
