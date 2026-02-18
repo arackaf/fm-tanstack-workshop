@@ -9,7 +9,9 @@
     "dev": "vite dev --port 3000",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "vitest run"
+    "test": "vitest run",
+    "pg": "docker container run -e POSTGRES_USER=docker -e POSTGRES_PASSWORD=docker -p 5432:5432 -v /Users/arackis/Documents/pg-data:/var/lib/postgresql postgres:18.2-alpine3.23",
+    "pg-raw": "docker container run -e POSTGRES_USER=docker -e POSTGRES_PASSWORD=docker -p 5432:5432 postgres:18.2-alpine3.23"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.18",
