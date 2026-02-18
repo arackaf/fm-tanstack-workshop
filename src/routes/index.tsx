@@ -18,10 +18,9 @@ function App() {
             <p className="inline-flex rounded-full border border-emerald-300/30 bg-emerald-500/10 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-emerald-200">
               Train smart. Track everything.
             </p>
-            <h1 className="text-4xl font-bold leading-tight tracking-tight text-white md:text-6xl">Build strength with a tracker that keeps up.</h1>
+            <h1 className="text-4xl font-bold leading-tight tracking-tight text-white md:text-6xl">Build strength The TanStack Way</h1>
             <p className="max-w-2xl text-base leading-relaxed text-slate-300 md:text-lg">
-              Log workouts, follow your progress, and stay consistent without extra clutter. TanStack Jacked is made for this workshop, so you can
-              focus on shipping features while still feeling like a real app.
+              Log workouts, follow your progress, and stay consistent without extra clutter.
             </p>
             <div className="flex flex-wrap items-center gap-3 pt-2">
               <button type="button" className="rounded-lg bg-sky-500 px-5 py-3 text-sm font-semibold text-white transition hover:bg-sky-400">
@@ -39,9 +38,9 @@ function App() {
           <aside className="rounded-2xl border border-slate-700 bg-slate-900/60 p-6 shadow-2xl shadow-slate-950/40 backdrop-blur">
             <p className="mb-4 text-sm font-medium text-slate-300">What you can track</p>
             <ul className="space-y-3 text-sm text-slate-200">
-              <li className="rounded-lg border border-slate-700 bg-slate-800/60 px-4 py-3">Weekly sessions and volume</li>
-              <li className="rounded-lg border border-slate-700 bg-slate-800/60 px-4 py-3">PR streaks by movement</li>
-              <li className="rounded-lg border border-slate-700 bg-slate-800/60 px-4 py-3">Notes for sets, reps, and intent</li>
+              <li className="rounded-lg border border-slate-700 bg-slate-800/60 px-4 py-3">Workout sessions and volume</li>
+              <li className="rounded-lg border border-slate-700 bg-slate-800/60 px-4 py-3">Body Composition Metrics</li>
+              <li className="rounded-lg border border-slate-700 bg-slate-800/60 px-4 py-3">Notes for sets, reps, etc</li>
             </ul>
           </aside>
         </section>
