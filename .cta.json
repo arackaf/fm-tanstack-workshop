@@ -1,0 +1,16 @@
+{
+  "projectName": "fm-tanstack-workshop",
+  "mode": "file-router",
+  "typescript": true,
+  "packageManager": "npm",
+  "tailwind": true,
+  "addOnOptions": {},
+  "git": false,
+  "routerOnly": false,
+  "version": 1,
+  "framework": "react-cra",
+  "chosenAddOns": [
+    "nitro",
+    "tanstack-query"
+  ]
+}
