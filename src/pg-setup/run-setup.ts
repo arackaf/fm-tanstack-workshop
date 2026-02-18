@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 
-import { setupIfNeeded } from "./index";
+import { setupIfNeeded } from "./setup";
 
 dotenv.config({ path: "../../.env" });
 
