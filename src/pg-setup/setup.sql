@@ -38,3 +38,25 @@ CREATE TABLE IF NOT EXISTS exercises (
 CREATE INDEX IF NOT EXISTS idx_exercises_muscle_groups_gin
   ON exercises
   USING GIN (muscle_groups);
+
+CREATE TABLE IF NOT EXISTS workout (
+  id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  name VARCHAR(50),
+  description TEXT
+);
+
+CREATE TABLE IF NOT EXISTS workout_segment (
+  id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  workout_id INT REFERENCES workout(id),
+  segment_order INT,
+  sets INT
+);
+
+CREATE TABLE IF NOT EXISTS workout_segment_exercise (
+  id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  workout_segment_id INT REFERENCES workout_segment(id),
+  exercise_order INT,
+  exercise muscle_group[],
+  reps INT
+);
+
