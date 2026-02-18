@@ -7,5 +7,3 @@ CREATE TABLE IF NOT EXISTS users (
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   UNIQUE (username)
 );
-
-CREATE INDEX IF NOT EXISTS idx_users_username ON users (username);
