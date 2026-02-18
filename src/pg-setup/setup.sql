@@ -34,7 +34,6 @@ CREATE TABLE IF NOT EXISTS exercises (
   muscle_groups muscle_group[],
   is_compound BOOL
 );
-
 CREATE INDEX IF NOT EXISTS idx_exercises_muscle_groups_gin
   ON exercises
   USING GIN (muscle_groups);
@@ -51,6 +50,8 @@ CREATE TABLE IF NOT EXISTS workout_segment (
   segment_order INT,
   sets INT
 );
+CREATE INDEX IF NOT EXISTS idx_workout_segment_workout_id_segment_order
+  ON workout_segment (workout_id, segment_order);
 
 CREATE TABLE IF NOT EXISTS workout_segment_exercise (
   id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -59,4 +60,6 @@ CREATE TABLE IF NOT EXISTS workout_segment_exercise (
   exercise muscle_group[],
   reps INT
 );
+CREATE INDEX IF NOT EXISTS idx_workout_segment_exercise_segment_id_exercise_order
+  ON workout_segment_exercise (workout_segment_id, exercise_order);
 
