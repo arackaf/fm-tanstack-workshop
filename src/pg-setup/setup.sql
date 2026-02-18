@@ -46,19 +46,19 @@ CREATE TABLE IF NOT EXISTS workout (
 
 CREATE TABLE IF NOT EXISTS workout_segment (
   id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  workout_id INT NOT NULL REFERENCES workout(id),
-  segment_order INT,
-  sets INT
+  workout_id INT NOT NULL REFERENCES workout(id) ON DELETE CASCADE,
+  segment_order INT CHECK (segment_order > 0),
+  sets INT CHECK (sets > 0)
 );
 CREATE INDEX IF NOT EXISTS idx_workout_segment_workout_id_segment_order
   ON workout_segment (workout_id, segment_order);
 
 CREATE TABLE IF NOT EXISTS workout_segment_exercise (
   id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  workout_segment_id INT NOT NULL REFERENCES workout_segment(id),
-  exercise_order INT,
+  workout_segment_id INT NOT NULL REFERENCES workout_segment(id) ON DELETE CASCADE,
+  exercise_order INT CHECK (exercise_order > 0),
   exercise_id INT REFERENCES exercises(id),
-  reps INT
+  reps INT CHECK (reps > 0)
 );
 CREATE INDEX IF NOT EXISTS idx_workout_segment_exercise_segment_id_exercise_order
   ON workout_segment_exercise (workout_segment_id, exercise_order);
