@@ -74,16 +74,16 @@ function RouteComponent() {
   };
 
   return (
-    <main className="min-h-screen bg-slate-950 text-slate-100">
+    <main className="min-h-screen bg-slate-900 text-slate-100">
       <div className="mx-auto w-full max-w-4xl px-6 py-10 md:px-8">
         <header className="mb-8">
-          <h1 className="mt-2 text-3xl font-bold tracking-tight text-white md:text-4xl">
+          <h1 className="mt-2 text-3xl font-bold tracking-tight text-slate-50 md:text-4xl">
             Exercises
           </h1>
         </header>
 
-        <section className="mb-8 rounded-xl border border-slate-800 bg-slate-900/70 p-4">
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-300">
+        <section className="mb-8 rounded-xl border border-slate-700/80 bg-slate-800/55 p-4 backdrop-blur-sm">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-300/90">
             Filter by muscle group
           </h2>
           <div className="mt-3 flex flex-wrap gap-4">
@@ -93,7 +93,7 @@ function RouteComponent() {
               return (
                 <label
                   key={muscleGroup}
-                  className="inline-flex cursor-pointer items-center gap-2 text-sm text-slate-200"
+                  className="inline-flex cursor-pointer items-center gap-2 text-sm text-slate-200/90"
                 >
                   <Checkbox
                     checked={isChecked}
@@ -112,22 +112,22 @@ function RouteComponent() {
           {filteredExercises.map(exercise => (
             <li
               key={exercise.id}
-              className="rounded-xl border border-slate-800 bg-slate-900/70 p-4 shadow-sm transition hover:border-slate-700"
+              className="rounded-xl border border-slate-700/80 bg-slate-800/55 p-4 shadow-sm transition hover:border-slate-600"
             >
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <p className="text-base font-semibold text-white">
+                  <p className="text-base font-semibold text-slate-50">
                     {exercise.name}
                   </p>
-                  <p className="mt-1 text-sm text-slate-400">
+                  <p className="mt-1 text-sm text-slate-300/80">
                     {exercise.description ?? "No description yet."}
                   </p>
                 </div>
                 <span
                   className={`rounded-full px-2.5 py-1 text-xs font-medium ${
                     exercise.isCompound
-                      ? "bg-emerald-500/15 text-emerald-300"
-                      : "bg-slate-700/80 text-slate-200"
+                      ? "bg-emerald-400/20 text-emerald-200"
+                      : "bg-slate-700/70 text-slate-100/90"
                   }`}
                 >
                   {exercise.isCompound ? "Compound" : "Isolation"}
@@ -135,7 +135,7 @@ function RouteComponent() {
               </div>
 
               {exercise.muscleGroups?.length ? (
-                <p className="mt-3 text-xs uppercase tracking-wide text-sky-300/90">
+                <p className="mt-3 text-xs uppercase tracking-wide text-sky-200/80">
                   {exercise.muscleGroups.join(" • ")}
                 </p>
               ) : null}
