@@ -101,7 +101,7 @@ function RouteComponent() {
                       toggleMuscleGroup(muscleGroup, checked === true)
                     }
                   />
-                  <span>{muscleGroup}</span>
+                  <span className="capitalize">{muscleGroup}</span>
                 </label>
               );
             })}
