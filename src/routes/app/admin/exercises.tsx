@@ -1,8 +1,11 @@
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
+import { useMemo, useState } from "react";
 
-import { asc } from "drizzle-orm";
+import { asc, sql } from "drizzle-orm";
+
+import { Checkbox } from "@/components/ui/checkbox";
 
 import { db } from "../../../drizzle/db";
 import { exercises } from "../../../drizzle/schema";
@@ -11,21 +14,64 @@ const getExercises = createServerFn({ method: "GET" }).handler(async () => {
   return db.select().from(exercises).orderBy(asc(exercises.name));
 });
 
+const getMuscleGroups = createServerFn({ method: "GET" }).handler(async () => {
+  const result = await db.execute<{ value: string }>(sql`
+    select unnest(enum_range(null::muscle_group))::text as value
+  `);
+
+  return result.rows.map(row => row.value);
+});
+
 const exercisesQueryOptions = () =>
   queryOptions({
     queryKey: ["exercises", "list"],
     queryFn: () => getExercises(),
   });
 
+const muscleGroupsQueryOptions = () =>
+  queryOptions({
+    queryKey: ["exercises", "muscle-groups"],
+    queryFn: () => getMuscleGroups(),
+  });
+
 export const Route = createFileRoute("/app/admin/exercises")({
   loader: async ({ context }) => {
-    await context.queryClient.ensureQueryData(exercisesQueryOptions());
+    await Promise.all([
+      context.queryClient.ensureQueryData(exercisesQueryOptions()),
+      context.queryClient.ensureQueryData(muscleGroupsQueryOptions()),
+    ]);
   },
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  const { data } = useSuspenseQuery(exercisesQueryOptions());
+  const { data: exercises } = useSuspenseQuery(exercisesQueryOptions());
+  const { data: muscleGroups } = useSuspenseQuery(muscleGroupsQueryOptions());
+  const [selectedMuscleGroups, setSelectedMuscleGroups] = useState<string[]>(
+    [],
+  );
+
+  const filteredExercises = useMemo(() => {
+    if (!selectedMuscleGroups.length) {
+      return exercises;
+    }
+
+    return exercises.filter(exercise =>
+      exercise.muscleGroups?.some(group =>
+        selectedMuscleGroups.includes(group),
+      ),
+    );
+  }, [exercises, selectedMuscleGroups]);
+
+  const toggleMuscleGroup = (muscleGroup: string, checked: boolean) => {
+    setSelectedMuscleGroups(current =>
+      checked
+        ? current.includes(muscleGroup)
+          ? current
+          : [...current, muscleGroup]
+        : current.filter(group => group !== muscleGroup),
+    );
+  };
 
   return (
     <main className="min-h-screen bg-slate-950 text-slate-100">
@@ -36,8 +82,34 @@ function RouteComponent() {
           </h1>
         </header>
 
+        <section className="mb-8 rounded-xl border border-slate-800 bg-slate-900/70 p-4">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-300">
+            Filter by muscle group
+          </h2>
+          <div className="mt-3 flex flex-wrap gap-4">
+            {muscleGroups.map(muscleGroup => {
+              const isChecked = selectedMuscleGroups.includes(muscleGroup);
+
+              return (
+                <label
+                  key={muscleGroup}
+                  className="inline-flex cursor-pointer items-center gap-2 text-sm text-slate-200"
+                >
+                  <Checkbox
+                    checked={isChecked}
+                    onCheckedChange={checked =>
+                      toggleMuscleGroup(muscleGroup, checked === true)
+                    }
+                  />
+                  <span>{muscleGroup}</span>
+                </label>
+              );
+            })}
+          </div>
+        </section>
+
         <ul className="space-y-3">
-          {data.map(exercise => (
+          {filteredExercises.map(exercise => (
             <li
               key={exercise.id}
               className="rounded-xl border border-slate-800 bg-slate-900/70 p-4 shadow-sm transition hover:border-slate-700"
