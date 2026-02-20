@@ -31,15 +31,9 @@ function RouteComponent() {
     <main className="min-h-screen bg-slate-950 text-slate-100">
       <div className="mx-auto w-full max-w-4xl px-6 py-10 md:px-8">
         <header className="mb-8">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-sky-300">
-            Admin
-          </p>
           <h1 className="mt-2 text-3xl font-bold tracking-tight text-white md:text-4xl">
             Exercises
           </h1>
-          <p className="mt-3 text-sm text-slate-400">
-            All exercises in alphabetical order.
-          </p>
         </header>
 
         <ul className="space-y-3">
