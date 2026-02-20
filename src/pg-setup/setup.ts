@@ -12,7 +12,7 @@ export async function setupIfNeeded() {
   const postgresUrl = process.env.POSTGRES;
 
   if (!postgresUrl) {
-    throw new Error("POSTGRES environment variable is required.");
+    throw new Error("\n\nPOSTGRES environment variable is required.\n\n");
   }
 
   const connectionString = `${postgresUrl}/postgres`;
@@ -45,6 +45,12 @@ export async function setupIfNeeded() {
         await setupClient.end();
       }
     }
+  } catch (er) {
+    console.log("=========================================================================");
+    console.log("Unable to connect to the database. Do you have Docker running?");
+    console.log("If not, please install Docker desktop, make sure it's running, and make");
+    console.log("sure you have `npm run pg` running in a separate terminal.");
+    console.log("=========================================================================");
   } finally {
     await client.end();
   }
