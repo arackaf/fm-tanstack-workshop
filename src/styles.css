@@ -136,3 +136,8 @@ code {
     @apply bg-background text-foreground;
   }
 }
+
+/* for shadcn checkbox, keep the normal border color even when checked */
+button[data-slot="checkbox"] {
+  border-color: var(--input) !important;
+}
