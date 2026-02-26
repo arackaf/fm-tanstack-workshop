@@ -12,6 +12,7 @@ export const Route = createFileRoute("/app/admin")({
 const sectionHeadings = {
   exercises: "Exercises",
   settings: "Settings",
+  "workout-templates": "Workout Templates",
 };
 
 function RouteComponent() {
