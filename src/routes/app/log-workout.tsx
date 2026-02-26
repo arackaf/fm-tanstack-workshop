@@ -6,6 +6,7 @@ import { Plus, Trash2 } from "lucide-react";
 import { useState } from "react";
 
 import { Header } from "@/components/Header";
+import { WorkoutSegmentExerciseFields } from "@/components/create-workout/WorkoutSegmentExerciseFields";
 
 import { db } from "../../drizzle/db";
 import { exercises } from "../../drizzle/schema";
@@ -231,128 +232,83 @@ function RouteComponent() {
 
             <div className="space-y-3">
               {segment.exercises.map((segmentExercise, exerciseIndex) => (
-                <div
+                <WorkoutSegmentExerciseFields
                   key={`segment-${segmentIndex + 1}-exercise-${exerciseIndex + 1}`}
-                  className="grid gap-3 rounded-lg border border-border/80 bg-background/70 p-3 md:grid-cols-[1.2fr_0.7fr_auto]"
-                >
-                  <label className="flex flex-col gap-2 text-sm">
-                    <span className="font-medium">
-                      Exercise {exerciseIndex + 1}
-                    </span>
-                    <select
-                      required
-                      value={segmentExercise.exerciseId}
-                      onChange={event =>
-                        setSegments(current =>
-                          current.map((currentSegment, idx) => {
-                            if (idx !== segmentIndex) {
-                              return currentSegment;
-                            }
-
-                            return {
-                              ...currentSegment,
-                              exercises: currentSegment.exercises.map(
-                                (exercise, exerciseIdx) =>
-                                  exerciseIdx === exerciseIndex
-                                    ? {
-                                        ...exercise,
-                                        exerciseId: event.target.value,
-                                      }
-                                    : exercise,
-                              ),
-                            };
-                          }),
-                        )
-                      }
-                      className="rounded-md border border-input bg-background px-3 py-2"
-                    >
-                      <option value="">Select an exercise</option>
-                      {exerciseOptions.map(option => (
-                        <option key={option.id} value={option.id}>
-                          {option.name ?? `Exercise #${option.id}`}
-                        </option>
-                      ))}
-                    </select>
-                  </label>
-
-                  <div className="flex flex-col gap-2 text-sm">
-                    <span className="font-medium">Reps</span>
-                    <input
-                      required={!segmentExercise.repsToFailure}
-                      disabled={segmentExercise.repsToFailure}
-                      min={1}
-                      type="number"
-                      value={segmentExercise.reps}
-                      onChange={event =>
-                        setSegments(current =>
-                          current.map((currentSegment, idx) => {
-                            if (idx !== segmentIndex) {
-                              return currentSegment;
-                            }
-
-                            return {
-                              ...currentSegment,
-                              exercises: currentSegment.exercises.map(
-                                (exercise, exerciseIdx) =>
-                                  exerciseIdx === exerciseIndex
-                                    ? {
-                                        ...exercise,
-                                        reps: event.target.value,
-                                      }
-                                    : exercise,
-                              ),
-                            };
-                          }),
-                        )
-                      }
-                      className="rounded-md border border-input bg-background px-3 py-2 disabled:opacity-60"
-                    />
-
-                    <label className="inline-flex items-center gap-2 text-xs text-muted-foreground">
-                      <input
-                        type="checkbox"
-                        checked={segmentExercise.repsToFailure}
-                        onChange={event =>
-                          setSegments(current =>
-                            current.map((currentSegment, idx) => {
-                              if (idx !== segmentIndex) {
-                                return currentSegment;
-                              }
-
-                              return {
-                                ...currentSegment,
-                                exercises: currentSegment.exercises.map(
-                                  (exercise, exerciseIdx) =>
-                                    exerciseIdx === exerciseIndex
-                                      ? {
-                                          ...exercise,
-                                          repsToFailure: event.target.checked,
-                                        }
-                                      : exercise,
-                                ),
-                              };
-                            }),
-                          )
+                  segmentIndex={segmentIndex}
+                  exerciseIndex={exerciseIndex}
+                  segmentExercise={segmentExercise}
+                  exerciseCountInSegment={segment.exercises.length}
+                  exerciseOptions={exerciseOptions}
+                  onExerciseChange={value =>
+                    setSegments(current =>
+                      current.map((currentSegment, idx) => {
+                        if (idx !== segmentIndex) {
+                          return currentSegment;
                         }
-                      />
-                      Reps to failure
-                    </label>
-                  </div>
 
-                  <div className="flex items-end">
-                    <button
-                      type="button"
-                      onClick={() =>
-                        removeExerciseFromSegment(segmentIndex, exerciseIndex)
-                      }
-                      disabled={segment.exercises.length === 1}
-                      className="inline-flex items-center gap-2 rounded-md border border-input px-3 py-2 text-xs font-medium disabled:cursor-not-allowed disabled:opacity-60"
-                    >
-                      <Trash2 className="size-3.5" aria-hidden="true" />
-                      Remove
-                    </button>
-                  </div>
-                </div>
+                        return {
+                          ...currentSegment,
+                          exercises: currentSegment.exercises.map(
+                            (exercise, exerciseIdx) =>
+                              exerciseIdx === exerciseIndex
+                                ? {
+                                    ...exercise,
+                                    exerciseId: value,
+                                  }
+                                : exercise,
+                          ),
+                        };
+                      }),
+                    )
+                  }
+                  onRepsChange={value =>
+                    setSegments(current =>
+                      current.map((currentSegment, idx) => {
+                        if (idx !== segmentIndex) {
+                          return currentSegment;
+                        }
+
+                        return {
+                          ...currentSegment,
+                          exercises: currentSegment.exercises.map(
+                            (exercise, exerciseIdx) =>
+                              exerciseIdx === exerciseIndex
+                                ? {
+                                    ...exercise,
+                                    reps: value,
+                                  }
+                                : exercise,
+                          ),
+                        };
+                      }),
+                    )
+                  }
+                  onRepsToFailureChange={checked =>
+                    setSegments(current =>
+                      current.map((currentSegment, idx) => {
+                        if (idx !== segmentIndex) {
+                          return currentSegment;
+                        }
+
+                        return {
+                          ...currentSegment,
+                          exercises: currentSegment.exercises.map(
+                            (exercise, exerciseIdx) =>
+                              exerciseIdx === exerciseIndex
+                                ? {
+                                    ...exercise,
+                                    repsToFailure: checked,
+                                  }
+                                : exercise,
+                          ),
+                        };
+                      }),
+                    )
+                  }
+                  onRemove={() =>
+                    removeExerciseFromSegment(segmentIndex, exerciseIndex)
+                  }
+                />
               ))}
 
               <button
