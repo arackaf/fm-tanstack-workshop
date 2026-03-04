@@ -1,12 +1,25 @@
 import { ClipboardPen, History, Shield } from "lucide-react";
 
-import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
+import {
+  createFileRoute,
+  Link,
+  Outlet,
+  useRouterState,
+} from "@tanstack/react-router";
+import { Loading } from "@/components/Loading";
+import { useEffect, useState } from "react";
 
 export const Route = createFileRoute("/app")({
   component: RouteComponent,
 });
 
 function RouteComponent() {
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    setTimeout(() => {
+      setShow(show => !show);
+    }, 3000);
+  }, [show]);
   const navLinkClassName =
     "inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition-colors";
 
@@ -55,6 +68,7 @@ function RouteComponent() {
       </header>
       <div className="mx-auto w-full max-w-4xl px-6 py-10 md:px-8">
         <Outlet />
+        {show ? <Loading /> : null}
       </div>
     </main>
   );
