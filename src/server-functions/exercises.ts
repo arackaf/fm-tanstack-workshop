@@ -12,7 +12,10 @@ const getExercisesServerFn = createServerFn({ method: "GET" }).handler(
 export const exercisesQueryOptions = () =>
   queryOptions({
     queryKey: ["exercises"],
-    queryFn: () => getExercisesServerFn(),
+    queryFn: () => {
+      console.log("Exercises Query");
+      return getExercisesServerFn();
+    },
     staleTime: 1000 * 60 * 5,
     gcTime: 1000 * 60 * 5,
   });

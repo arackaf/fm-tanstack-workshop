@@ -15,7 +15,10 @@ type WorkoutHistoryInput = {
 export const workoutHistoryQueryOptions = (input?: WorkoutHistoryInput) =>
   queryOptions({
     queryKey: ["workouts", input],
-    queryFn: () => getWorkoutHistory({ data: input ?? {} }),
+    queryFn: () => {
+      console.log("Workouts Query");
+      return getWorkoutHistory({ data: input ?? {} });
+    },
     staleTime: 1000 * 60 * 5,
     gcTime: 1000 * 60 * 5,
   });
