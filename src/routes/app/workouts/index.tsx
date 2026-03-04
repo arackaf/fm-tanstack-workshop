@@ -1,6 +1,6 @@
-import { useMemo, useState, useTransition } from "react";
+import { Suspense, useMemo, useState, useTransition, type FC } from "react";
 
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 
 import { DisplayWorkout } from "@/components/display-workout/DisplayWorkout";
@@ -9,6 +9,22 @@ import { Button } from "@/components/ui/button";
 import { exercisesQueryOptions } from "@/server-functions/exercises";
 import { workoutHistoryQueryOptions } from "@/server-functions/workouts";
 import type { WorkoutNextPageToken } from "@/data/workouts/get-workouts";
+
+const RouteComponent: FC<{}> = () => {
+  const { data: workoutsPayload } = useQuery(workoutHistoryQueryOptions());
+  const { data: exercises } = useQuery(exercisesQueryOptions());
+
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      {workoutsPayload && exercises ? (
+        <RenderedWorkouts
+          exercises={exercises}
+          workoutsPayload={workoutsPayload}
+        />
+      ) : null}
+    </Suspense>
+  );
+};
 
 export const Route = createFileRoute("/app/workouts/")({
   loader: async ({ context }) => {
@@ -20,8 +36,13 @@ export const Route = createFileRoute("/app/workouts/")({
   component: RouteComponent,
 });
 
-function RouteComponent() {
-  const { data: exercises } = useSuspenseQuery(exercisesQueryOptions());
+function RenderedWorkouts({
+  exercises,
+  workoutsPayload,
+}: {
+  exercises: any;
+  workoutsPayload: any;
+}) {
   const [, startTransition] = useTransition();
 
   const [nextPageToken, setNextPageToken] = useState<
@@ -30,19 +51,14 @@ function RouteComponent() {
   const [previousPageToken, setPreviousPageToken] = useState<
     WorkoutNextPageToken | undefined
   >();
-  const { data: workoutsPayload } = useSuspenseQuery(
-    workoutHistoryQueryOptions({
-      nextPage: nextPageToken,
-      previousPage: previousPageToken,
-    }),
-  );
 
-  const workouts = workoutsPayload.workouts;
-  const nextPage = workoutsPayload.nextPage;
-  const previousPage = workoutsPayload.previousPage;
+  const workouts: any[] = workoutsPayload.workouts;
+  const nextPage: any = workoutsPayload.nextPage;
+  const previousPage: any = workoutsPayload.previousPage;
 
   const exerciseNameById = useMemo(
-    () => new Map(exercises.map(exercise => [exercise.id, exercise.name])),
+    () =>
+      new Map(exercises.map((exercise: any) => [exercise.id, exercise.name])),
     [exercises],
   );
 
