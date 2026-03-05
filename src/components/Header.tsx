@@ -1,6 +1,6 @@
 import type { FC, PropsWithChildren } from "react";
 
-type HeaderProps = {
+export type HeaderProps = {
   title: string;
 };
 

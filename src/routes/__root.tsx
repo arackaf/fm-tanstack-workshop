@@ -47,6 +47,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <body>
         <ThemeProvider>{children}</ThemeProvider>
         <Scripts />
+        <div id="page-pending-root"></div>
       </body>
     </html>
   );
