@@ -46,10 +46,20 @@ If you truly don't care about SSR, and you truly just want a 100% client-driven 
 
 ### Why SSR
 
-![SPA Flow](./img/1_img1.png)
+With a normal SPA, the browser renders an empty application shell, likely with a loading spinner. That means, when the server responds to the url the user put into their browser, they see this
 
-![Loading spinner](./img/1_img2.png)
+<img alt="SPA Flow" src="./img/1_img1.png" width="500" />
 
-![SSR Flow](./img/1_img3.png)
+What happens then?
 
-![User SSR](./img/1_img4.png)
+<img alt="Loading Spinner" src="./img/1_img2.png" width="500" />
+
+What if, instead of rendering an empty application shell, we rendered ... the actual page?
+
+<img alt="SSR Flow" src="./img/1_img3.png" width="500" />
+
+Which looks like this
+
+<img alt="User SSR" src="./img/1_img4.png" width="500" />
+
+SSR (with a framework like React) is usually (for reasons we won't get into) tricky to get right. But TanStack Start handles this for you.
