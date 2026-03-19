@@ -15,14 +15,12 @@ type DurationExerciseSetProps = {
   form: WorkoutTemplateForm;
   segmentIndex: number;
   exerciseIndex: number;
-  defaultDurationUnit?: "seconds" | "minutes" | "hours" | null;
 };
 
 export const DurationExerciseSet: FC<DurationExerciseSetProps> = ({
   form,
   segmentIndex,
   exerciseIndex,
-  defaultDurationUnit,
 }) => {
   return (
     <div className="flex gap-2 min-h-7">
@@ -77,7 +75,6 @@ export const DurationExerciseSet: FC<DurationExerciseSetProps> = ({
             }}
             children={durationUnitField => (
               <Select
-                defaultValue={defaultDurationUnit ?? undefined}
                 value={durationUnitField.state.value ?? undefined}
                 onValueChange={value => {
                   durationUnitField.handleChange(value as never);

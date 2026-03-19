@@ -15,14 +15,12 @@ type DistanceExerciseSetProps = {
   form: WorkoutTemplateForm;
   segmentIndex: number;
   exerciseIndex: number;
-  defaultDistanceUnit?: "feet" | "yards" | "miles" | "km" | null;
 };
 
 export const DistanceExerciseSet: FC<DistanceExerciseSetProps> = ({
   form,
   segmentIndex,
   exerciseIndex,
-  defaultDistanceUnit,
 }) => {
   return (
     <div className="flex gap-2 min-h-7">
@@ -77,7 +75,6 @@ export const DistanceExerciseSet: FC<DistanceExerciseSetProps> = ({
             }}
             children={distanceUnitField => (
               <Select
-                defaultValue={defaultDistanceUnit ?? undefined}
                 value={distanceUnitField.state.value ?? undefined}
                 onValueChange={value => {
                   distanceUnitField.handleChange(value as never);

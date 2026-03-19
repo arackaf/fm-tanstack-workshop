@@ -1,4 +1,4 @@
-import { useState, type FC } from "react";
+import type { FC } from "react";
 import { Plus, Trash2 } from "lucide-react";
 
 import {
@@ -42,10 +42,6 @@ const getExerciseExecutionType = (
 export const WorkoutTemplateSegmentExercises: FC<
   WorkoutTemplateSegmentExercisesProps
 > = ({ form, exercises, muscleGroups, segmentIndex, segmentSets }) => {
-  const [executionTypeByRow, setExecutionTypeByRow] = useState<
-    Record<number, ExecutionType>
-  >({});
-
   return (
     <form.Field
       mode="array"
@@ -53,14 +49,40 @@ export const WorkoutTemplateSegmentExercises: FC<
       children={segmentExercisesField => (
         <>
           {segmentExercisesField.state.value.map((_, exerciseIndex) => {
-            const selectedExerciseId =
-              segmentExercisesField.state.value[exerciseIndex]?.exerciseId ?? 0;
-            const selectedExercise = exercises.find(
-              exercise => exercise.id === selectedExerciseId,
-            );
-            const rowExecutionType =
-              executionTypeByRow[exerciseIndex] ??
-              getExerciseExecutionType(selectedExercise);
+            const exercisePathPrefix =
+              `segments[${segmentIndex}].exercises[${exerciseIndex}]` as const;
+            const executionTypeFieldName =
+              `${exercisePathPrefix}.executionType` as const;
+
+            const applyExecutionDefaults = (
+              executionType: ExecutionType,
+              exercise: Exercise | undefined,
+            ) => {
+              form.setFieldValue(
+                `${exercisePathPrefix}.executionType`,
+                executionType as never,
+              );
+              form.setFieldValue(
+                `${exercisePathPrefix}.distance`,
+                null as never,
+              );
+              form.setFieldValue(
+                `${exercisePathPrefix}.distanceUnit`,
+                (executionType === "distance"
+                  ? (exercise?.defaultDistanceType ?? null)
+                  : null) as never,
+              );
+              form.setFieldValue(
+                `${exercisePathPrefix}.duration`,
+                null as never,
+              );
+              form.setFieldValue(
+                `${exercisePathPrefix}.durationUnit`,
+                (executionType === "time"
+                  ? (exercise?.defaultDurationType ?? null)
+                  : null) as never,
+              );
+            };
 
             return (
               <div
@@ -79,46 +101,64 @@ export const WorkoutTemplateSegmentExercises: FC<
                     }}
                     children={segmentExercise => (
                       <>
-                        <label className="flex flex-col gap-2 text-sm">
-                          <ExerciseSelector
-                            value={segmentExercise.state.value ?? null}
-                            exercises={exercises}
-                            muscleGroups={muscleGroups}
-                            onSelect={exerciseId => {
-                              segmentExercise.handleChange(exerciseId);
-                              const selectedExercise = exercises.find(
-                                exercise => exercise.id === exerciseId,
-                              );
-                              setExecutionTypeByRow(previous => ({
-                                ...previous,
-                                [exerciseIndex]:
-                                  getExerciseExecutionType(selectedExercise),
-                              }));
-                            }}
-                          />
-                          {!segmentExercise.state.meta.isValid &&
-                            segmentExercise.state.meta.errors.map(
-                              (error, idx) => (
-                                <span
-                                  key={`error-${idx}`}
-                                  className="text-red-500 text-xs"
-                                >
-                                  {error}
-                                </span>
-                              ),
-                            )}
-                        </label>
-                        {selectedExerciseId > 0 ? (
-                          <ExecutionTypeSelect
-                            value={rowExecutionType}
-                            onValueChange={value => {
-                              setExecutionTypeByRow(previous => ({
-                                ...previous,
-                                [exerciseIndex]: value,
-                              }));
-                            }}
-                          />
-                        ) : null}
+                        {(() => {
+                          const selectedExerciseId = segmentExercise.state.value ?? 0;
+                          const selectedExercise = exercises.find(
+                            exercise => exercise.id === selectedExerciseId,
+                          );
+
+                          return (
+                            <>
+                              <label className="flex flex-col gap-2 text-sm">
+                                <ExerciseSelector
+                                  value={segmentExercise.state.value ?? null}
+                                  exercises={exercises}
+                                  muscleGroups={muscleGroups}
+                                  onSelect={exerciseId => {
+                                    segmentExercise.handleChange(exerciseId);
+                                    const selectedExercise = exercises.find(
+                                      exercise => exercise.id === exerciseId,
+                                    );
+                                    applyExecutionDefaults(
+                                      getExerciseExecutionType(selectedExercise),
+                                      selectedExercise,
+                                    );
+                                  }}
+                                />
+                                {!segmentExercise.state.meta.isValid &&
+                                  segmentExercise.state.meta.errors.map(
+                                    (error, idx) => (
+                                      <span
+                                        key={`error-${idx}`}
+                                        className="text-red-500 text-xs"
+                                      >
+                                        {error}
+                                      </span>
+                                    ),
+                                  )}
+                              </label>
+                              <form.Field
+                                name={executionTypeFieldName}
+                                children={executionTypeField => {
+                                  const rowExecutionType =
+                                    executionTypeField.state.value ??
+                                    getExerciseExecutionType(selectedExercise);
+                                  return selectedExerciseId > 0 ? (
+                                    <ExecutionTypeSelect
+                                      value={rowExecutionType}
+                                      onValueChange={value => {
+                                        applyExecutionDefaults(
+                                          value,
+                                          selectedExercise,
+                                        );
+                                      }}
+                                    />
+                                  ) : null;
+                                }}
+                              />
+                            </>
+                          );
+                        })()}
                       </>
                     )}
                   />
@@ -142,27 +182,46 @@ export const WorkoutTemplateSegmentExercises: FC<
                   </div>
                 </div>
 
-                {!selectedExerciseId || rowExecutionType === "repetition" ? (
-                  <RepetitionExerciseSet
-                    form={form}
-                    segmentIndex={segmentIndex}
-                    exerciseIndex={exerciseIndex}
-                  />
-                ) : rowExecutionType === "distance" ? (
-                  <DistanceExerciseSet
-                    form={form}
-                    segmentIndex={segmentIndex}
-                    exerciseIndex={exerciseIndex}
-                    defaultDistanceUnit={selectedExercise?.defaultDistanceType}
-                  />
-                ) : (
-                  <DurationExerciseSet
-                    form={form}
-                    segmentIndex={segmentIndex}
-                    exerciseIndex={exerciseIndex}
-                    defaultDurationUnit={selectedExercise?.defaultDurationType}
-                  />
-                )}
+                <form.Field
+                  name={`${exercisePathPrefix}.exerciseId`}
+                  children={exerciseIdField => {
+                    const selectedExerciseId = exerciseIdField.state.value ?? 0;
+                    const selectedExercise = exercises.find(
+                      exercise => exercise.id === selectedExerciseId,
+                    );
+
+                    return (
+                      <form.Field
+                        name={executionTypeFieldName}
+                        children={executionTypeField => {
+                          const rowExecutionType =
+                            executionTypeField.state.value ??
+                            getExerciseExecutionType(selectedExercise);
+                          return !selectedExerciseId ||
+                            rowExecutionType === "repetition" ? (
+                            <RepetitionExerciseSet
+                              form={form}
+                              segmentIndex={segmentIndex}
+                              exerciseIndex={exerciseIndex}
+                            />
+                          ) : rowExecutionType === "distance" ? (
+                            <DistanceExerciseSet
+                              form={form}
+                              segmentIndex={segmentIndex}
+                              exerciseIndex={exerciseIndex}
+                            />
+                          ) : (
+                            <DurationExerciseSet
+                              form={form}
+                              segmentIndex={segmentIndex}
+                              exerciseIndex={exerciseIndex}
+                            />
+                          );
+                        }}
+                      />
+                    );
+                  }}
+                />
               </div>
             );
           })}
