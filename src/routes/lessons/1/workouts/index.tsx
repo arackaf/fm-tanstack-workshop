@@ -5,9 +5,11 @@ import { useRef } from "react";
 
 export const Route = createFileRoute("/lessons/1/workouts/")({
   component: RouteComponent,
+  // TODO: add search param
 });
 
 function RouteComponent() {
+  // TODO: make this go away
   const { search } = Route.useSearch();
   const searchRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
