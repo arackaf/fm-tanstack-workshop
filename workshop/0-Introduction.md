@@ -96,6 +96,8 @@ For this workshop, we'll be focusing on contrived exercises that re-create simpl
 - routes us where all the TanStack routes live
 - server-functions is where all my server functions live
   - This helped keep route files uncluttered and minimal
+- lessons folder has ... all the lessons I'll be going over
+  - These tend to be extremely minimal, contrived problems we can look at clearly
 
 You do **NOT** (and likely should not) keep everything quite so obsessively separated. I did that to help focus our attention where it's needed. Rather than a long Drizzle db query chain, you just see a call to a function that executes that query. If you're curious what the query looks like you're of course free to command-click into it, but otherwise it should help remove distractions
 

@@ -45,31 +45,7 @@ routes/workouts/$id.tsx
 
 Check the docs, there's a TON of advanced use cases. Splat routes, pathless layouts, etc. We won't pour over every cool routing trick TanStack Route is capable of, so check the docs!
 
-## Loaders
+Docs are here: https://tanstack.com/router/latest/docs/routing/file-based-routing
 
-Loaders load the data for your given page (or layout)
-
-- Add a `loader` async method in your route config
-- Request your data (we'll see how to do that soon) in the loader, and return it.
-  - Access that data with the Route.useLoaderData() hook
-  - Or the `useLoaderData` hook, with the route passed in via `{ from }`
-
-==========================
-Loaders are isomorphic!!!!
-==========================
-
-## Demo
-
-Now let's see it in action
-
-I'll briefly add a /blog and /blog/$post route, with static data
-
-## Exercise
-
-Hope fully the demo went well. Your turn:
-
-- Add a /workouts route to the in-class folder
-  - So you'll browse to it via /in-class/workouts
-  - Return some static data
-- Then add a /workouts/$id route
-  - Return some static data here, too
+I wrote a three-part blog post on Router - part 1 covers many more routing intricacies:
+https://frontendmasters.com/blog/introducing-tanstack-router/
