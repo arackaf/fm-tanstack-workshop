@@ -17,7 +17,8 @@ type LessonKey =
   | "10"
   | "11"
   | "12"
-  | "13";
+  | "13"
+  | "14";
 const lessonSummaryHeading: { [key in LessonKey]: string } = {
   1: "Routing",
   2: "Loaders",
@@ -32,6 +33,7 @@ const lessonSummaryHeading: { [key in LessonKey]: string } = {
   11: "TanStack Query and Suspense II",
   12: "Middleware",
   13: "Advanced Middleware",
+  14: "API Routes",
 };
 
 type PageledLessonKey = "11";
