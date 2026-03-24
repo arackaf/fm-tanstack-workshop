@@ -3,6 +3,8 @@ import { Input } from "@/components/ui/input";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useRef } from "react";
 
+// TODO: Add a layout
+
 export const Route = createFileRoute("/lessons/1/workouts/")({
   component: RouteComponent,
   // TODO: add search param
@@ -41,14 +43,7 @@ function RouteComponent() {
           <span className="flex gap-2">
             <span>{workout.name}</span>
 
-            <Link
-              className="ml-auto"
-              to={`/lessons/1/workouts/$id`}
-              params={{ id: String(workout.id) }}
-              preload={false}
-            >
-              View
-            </Link>
+            {/* TODO: Link to workout (add ml-auto) */}
           </span>
         </div>
       ))}
