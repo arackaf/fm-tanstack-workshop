@@ -5,11 +5,6 @@ import { useRef } from "react";
 
 export const Route = createFileRoute("/lessons/1/workouts/")({
   component: RouteComponent,
-  validateSearch: (searchParams: Record<string, string>) => {
-    return {
-      search: searchParams.search || undefined,
-    };
-  },
 });
 
 function RouteComponent() {
@@ -33,12 +28,7 @@ function RouteComponent() {
         <Button
           variant="outline"
           onClick={() => {
-            navigate({
-              to: "/lessons/1/workouts",
-              search: {
-                search: searchRef.current?.value,
-              },
-            });
+            // TODO: Set search param
           }}
         >
           Search
