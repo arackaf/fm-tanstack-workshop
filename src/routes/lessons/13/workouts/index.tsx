@@ -6,7 +6,6 @@ import {
   queryOptions,
   useMutation,
   useQuery,
-  useQueryClient,
 } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
