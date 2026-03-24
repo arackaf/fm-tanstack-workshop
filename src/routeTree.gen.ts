@@ -45,6 +45,9 @@ import { Route as Lessons4WorkoutsOtherPathRouteImport } from './routes/lessons/
 import { Route as Lessons4WorkoutsIdRouteImport } from './routes/lessons/4/workouts/$id'
 import { Route as Lessons3WorkoutsIdRouteImport } from './routes/lessons/3/workouts/$id'
 import { Route as Lessons2WorkoutsIdRouteImport } from './routes/lessons/2/workouts/$id'
+import { Route as Lessons14WorkoutsWorkoutsClientSideRouteImport } from './routes/lessons/14/workouts/workouts-client-side'
+import { Route as Lessons14WorkoutsWorkoutsApi2RouteImport } from './routes/lessons/14/workouts/workouts-api-2'
+import { Route as Lessons14WorkoutsWorkoutsApiRouteImport } from './routes/lessons/14/workouts/workouts-api'
 import { Route as Lessons11WorkoutsIdRouteImport } from './routes/lessons/11/workouts/$id'
 import { Route as Lessons10WorkoutsIdRouteImport } from './routes/lessons/10/workouts/$id'
 import { Route as Lessons1WorkoutsIdRouteImport } from './routes/lessons/1/workouts/$id'
@@ -239,6 +242,24 @@ const Lessons2WorkoutsIdRoute = Lessons2WorkoutsIdRouteImport.update({
   path: '/2/workouts/$id',
   getParentRoute: () => LessonsRouteRoute,
 } as any)
+const Lessons14WorkoutsWorkoutsClientSideRoute =
+  Lessons14WorkoutsWorkoutsClientSideRouteImport.update({
+    id: '/14/workouts/workouts-client-side',
+    path: '/14/workouts/workouts-client-side',
+    getParentRoute: () => LessonsRouteRoute,
+  } as any)
+const Lessons14WorkoutsWorkoutsApi2Route =
+  Lessons14WorkoutsWorkoutsApi2RouteImport.update({
+    id: '/14/workouts/workouts-api-2',
+    path: '/14/workouts/workouts-api-2',
+    getParentRoute: () => LessonsRouteRoute,
+  } as any)
+const Lessons14WorkoutsWorkoutsApiRoute =
+  Lessons14WorkoutsWorkoutsApiRouteImport.update({
+    id: '/14/workouts/workouts-api',
+    path: '/14/workouts/workouts-api',
+    getParentRoute: () => LessonsRouteRoute,
+  } as any)
 const Lessons11WorkoutsIdRoute = Lessons11WorkoutsIdRouteImport.update({
   id: '/11/workouts/$id',
   path: '/11/workouts/$id',
@@ -313,6 +334,9 @@ export interface FileRoutesByFullPath {
   '/lessons/1/workouts/$id': typeof Lessons1WorkoutsIdRoute
   '/lessons/10/workouts/$id': typeof Lessons10WorkoutsIdRoute
   '/lessons/11/workouts/$id': typeof Lessons11WorkoutsIdRoute
+  '/lessons/14/workouts/workouts-api': typeof Lessons14WorkoutsWorkoutsApiRoute
+  '/lessons/14/workouts/workouts-api-2': typeof Lessons14WorkoutsWorkoutsApi2Route
+  '/lessons/14/workouts/workouts-client-side': typeof Lessons14WorkoutsWorkoutsClientSideRoute
   '/lessons/2/workouts/$id': typeof Lessons2WorkoutsIdRoute
   '/lessons/3/workouts/$id': typeof Lessons3WorkoutsIdRoute
   '/lessons/4/workouts/$id': typeof Lessons4WorkoutsIdRoute
@@ -358,6 +382,9 @@ export interface FileRoutesByTo {
   '/lessons/1/workouts/$id': typeof Lessons1WorkoutsIdRoute
   '/lessons/10/workouts/$id': typeof Lessons10WorkoutsIdRoute
   '/lessons/11/workouts/$id': typeof Lessons11WorkoutsIdRoute
+  '/lessons/14/workouts/workouts-api': typeof Lessons14WorkoutsWorkoutsApiRoute
+  '/lessons/14/workouts/workouts-api-2': typeof Lessons14WorkoutsWorkoutsApi2Route
+  '/lessons/14/workouts/workouts-client-side': typeof Lessons14WorkoutsWorkoutsClientSideRoute
   '/lessons/2/workouts/$id': typeof Lessons2WorkoutsIdRoute
   '/lessons/3/workouts/$id': typeof Lessons3WorkoutsIdRoute
   '/lessons/4/workouts/$id': typeof Lessons4WorkoutsIdRoute
@@ -407,6 +434,9 @@ export interface FileRoutesById {
   '/lessons/1/workouts/$id': typeof Lessons1WorkoutsIdRoute
   '/lessons/10/workouts/$id': typeof Lessons10WorkoutsIdRoute
   '/lessons/11/workouts/$id': typeof Lessons11WorkoutsIdRoute
+  '/lessons/14/workouts/workouts-api': typeof Lessons14WorkoutsWorkoutsApiRoute
+  '/lessons/14/workouts/workouts-api-2': typeof Lessons14WorkoutsWorkoutsApi2Route
+  '/lessons/14/workouts/workouts-client-side': typeof Lessons14WorkoutsWorkoutsClientSideRoute
   '/lessons/2/workouts/$id': typeof Lessons2WorkoutsIdRoute
   '/lessons/3/workouts/$id': typeof Lessons3WorkoutsIdRoute
   '/lessons/4/workouts/$id': typeof Lessons4WorkoutsIdRoute
@@ -457,6 +487,9 @@ export interface FileRouteTypes {
     | '/lessons/1/workouts/$id'
     | '/lessons/10/workouts/$id'
     | '/lessons/11/workouts/$id'
+    | '/lessons/14/workouts/workouts-api'
+    | '/lessons/14/workouts/workouts-api-2'
+    | '/lessons/14/workouts/workouts-client-side'
     | '/lessons/2/workouts/$id'
     | '/lessons/3/workouts/$id'
     | '/lessons/4/workouts/$id'
@@ -502,6 +535,9 @@ export interface FileRouteTypes {
     | '/lessons/1/workouts/$id'
     | '/lessons/10/workouts/$id'
     | '/lessons/11/workouts/$id'
+    | '/lessons/14/workouts/workouts-api'
+    | '/lessons/14/workouts/workouts-api-2'
+    | '/lessons/14/workouts/workouts-client-side'
     | '/lessons/2/workouts/$id'
     | '/lessons/3/workouts/$id'
     | '/lessons/4/workouts/$id'
@@ -550,6 +586,9 @@ export interface FileRouteTypes {
     | '/lessons/1/workouts/$id'
     | '/lessons/10/workouts/$id'
     | '/lessons/11/workouts/$id'
+    | '/lessons/14/workouts/workouts-api'
+    | '/lessons/14/workouts/workouts-api-2'
+    | '/lessons/14/workouts/workouts-client-side'
     | '/lessons/2/workouts/$id'
     | '/lessons/3/workouts/$id'
     | '/lessons/4/workouts/$id'
@@ -842,6 +881,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Lessons2WorkoutsIdRouteImport
       parentRoute: typeof LessonsRouteRoute
     }
+    '/lessons/14/workouts/workouts-client-side': {
+      id: '/lessons/14/workouts/workouts-client-side'
+      path: '/14/workouts/workouts-client-side'
+      fullPath: '/lessons/14/workouts/workouts-client-side'
+      preLoaderRoute: typeof Lessons14WorkoutsWorkoutsClientSideRouteImport
+      parentRoute: typeof LessonsRouteRoute
+    }
+    '/lessons/14/workouts/workouts-api-2': {
+      id: '/lessons/14/workouts/workouts-api-2'
+      path: '/14/workouts/workouts-api-2'
+      fullPath: '/lessons/14/workouts/workouts-api-2'
+      preLoaderRoute: typeof Lessons14WorkoutsWorkoutsApi2RouteImport
+      parentRoute: typeof LessonsRouteRoute
+    }
+    '/lessons/14/workouts/workouts-api': {
+      id: '/lessons/14/workouts/workouts-api'
+      path: '/14/workouts/workouts-api'
+      fullPath: '/lessons/14/workouts/workouts-api'
+      preLoaderRoute: typeof Lessons14WorkoutsWorkoutsApiRouteImport
+      parentRoute: typeof LessonsRouteRoute
+    }
     '/lessons/11/workouts/$id': {
       id: '/lessons/11/workouts/$id'
       path: '/11/workouts/$id'
@@ -992,6 +1052,9 @@ interface LessonsRouteRouteChildren {
   Lessons1WorkoutsIdRoute: typeof Lessons1WorkoutsIdRoute
   Lessons10WorkoutsIdRoute: typeof Lessons10WorkoutsIdRoute
   Lessons11WorkoutsIdRoute: typeof Lessons11WorkoutsIdRoute
+  Lessons14WorkoutsWorkoutsApiRoute: typeof Lessons14WorkoutsWorkoutsApiRoute
+  Lessons14WorkoutsWorkoutsApi2Route: typeof Lessons14WorkoutsWorkoutsApi2Route
+  Lessons14WorkoutsWorkoutsClientSideRoute: typeof Lessons14WorkoutsWorkoutsClientSideRoute
   Lessons2WorkoutsIdRoute: typeof Lessons2WorkoutsIdRoute
   Lessons3WorkoutsIdRoute: typeof Lessons3WorkoutsIdRoute
   Lessons4WorkoutsIdRoute: typeof Lessons4WorkoutsIdRoute
@@ -1020,6 +1083,10 @@ const LessonsRouteRouteChildren: LessonsRouteRouteChildren = {
   Lessons1WorkoutsIdRoute: Lessons1WorkoutsIdRoute,
   Lessons10WorkoutsIdRoute: Lessons10WorkoutsIdRoute,
   Lessons11WorkoutsIdRoute: Lessons11WorkoutsIdRoute,
+  Lessons14WorkoutsWorkoutsApiRoute: Lessons14WorkoutsWorkoutsApiRoute,
+  Lessons14WorkoutsWorkoutsApi2Route: Lessons14WorkoutsWorkoutsApi2Route,
+  Lessons14WorkoutsWorkoutsClientSideRoute:
+    Lessons14WorkoutsWorkoutsClientSideRoute,
   Lessons2WorkoutsIdRoute: Lessons2WorkoutsIdRoute,
   Lessons3WorkoutsIdRoute: Lessons3WorkoutsIdRoute,
   Lessons4WorkoutsIdRoute: Lessons4WorkoutsIdRoute,
@@ -1056,10 +1123,11 @@ export const routeTree = rootRouteImport
   ._addFileTypes<FileRouteTypes>()
 
 import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
+import type { startInstance } from './start.ts'
 declare module '@tanstack/react-start' {
   interface Register {
     ssr: true
     router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
   }
 }
