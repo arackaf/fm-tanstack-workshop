@@ -18,7 +18,8 @@ type LessonKey =
   | "11"
   | "12"
   | "13"
-  | "14";
+  | "14"
+  | "15";
 const lessonSummaryHeading: { [key in LessonKey]: string } = {
   1: "Routing",
   2: "Loaders",
@@ -34,10 +35,11 @@ const lessonSummaryHeading: { [key in LessonKey]: string } = {
   12: "Middleware",
   13: "Advanced Middleware",
   14: "API Routes",
+  15: "Static Pre-rendering",
 };
 
 type PageledLessonKey = "11";
-type PagelessLessonKey = Exclude<LessonKey, PageledLessonKey>;
+type PagelessLessonKey = Exclude<LessonKey, PageledLessonKey | "15">;
 
 function RouteComponent() {
   return (
@@ -49,6 +51,15 @@ function RouteComponent() {
             <Link
               to={`/lessons/${idx as PageledLessonKey}/workouts`}
               search={{ page: 1 }}
+              preload={false}
+              className="rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm font-semibold text-slate-900 transition hover:border-slate-400 hover:bg-slate-100 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100 dark:hover:border-slate-400 dark:hover:bg-slate-800"
+              key={idx}
+            >
+              Lesson {idx} - {desc}
+            </Link>
+          ) : idx === "15" ? (
+            <Link
+              to={`/lessons/${idx}`}
               preload={false}
               className="rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm font-semibold text-slate-900 transition hover:border-slate-400 hover:bg-slate-100 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100 dark:hover:border-slate-400 dark:hover:bg-slate-800"
               key={idx}
