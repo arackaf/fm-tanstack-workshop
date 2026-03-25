@@ -1,8 +1,24 @@
-import { Suspense, use, useMemo, type FC } from "react";
-import { createFileRoute, Link } from "@tanstack/react-router";
+import {
+  Suspense,
+  use,
+  useMemo,
+  useRef,
+  useState,
+  useTransition,
+  type FC,
+} from "react";
+import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
 
-import { getExercisesServerFn } from "@/server-functions/exercises";
+import {
+  editExercise,
+  getExercisesServerFn,
+} from "@/server-functions/exercises";
 import { getInClassWorkoutHistory } from "@/server-functions/in-class/workouts-simple";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { ExerciseSelector } from "@/components/ExerciseSelector";
+import { getMuscleGroupsServerFn } from "@/server-functions/muscle-groups";
+import { useQuery } from "@tanstack/react-query";
 
 type WorkoutHistoryPayload = Awaited<
   ReturnType<typeof getInClassWorkoutHistory>
@@ -57,8 +73,18 @@ const RouteContents: FC<{
     return new Map(exercises.map(exercise => [exercise.id, exercise]));
   }, [exercises]);
 
+  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
+
+  const onExerciseSaved = () => {
+    startTransition(() => {
+      router.invalidate();
+    });
+  };
+
   return (
     <>
+      <SelectAndEditExercise exercises={exercises} onSaved={onExerciseSaved} />
       {workoutsPayload.workouts.map(workout => (
         <div key={workout.id}>
           <span className="flex gap-2">
@@ -83,5 +109,86 @@ const RouteContents: FC<{
         </div>
       ))}
     </>
+  );
+};
+
+const SelectAndEditExercise: FC<{
+  exercises: Exercise[];
+  onSaved: () => void;
+}> = props => {
+  const { exercises, onSaved } = props;
+  const [selectedExerciseId, setSelectedExerciseId] = useState<number | null>(
+    null,
+  );
+
+  const { data: muscleGroups } = useQuery({
+    queryKey: ["muscleGroups"],
+    queryFn: () => getMuscleGroupsServerFn(),
+    staleTime: 1000 * 60 * 5,
+    gcTime: 1000 * 60 * 5,
+  });
+
+  return (
+    <div className="flex flex-col gap-2">
+      <ExerciseSelector
+        value={selectedExerciseId}
+        exercises={exercises}
+        muscleGroups={muscleGroups ?? []}
+        onSelect={exerciseId => {
+          setSelectedExerciseId(exerciseId);
+        }}
+      />
+
+      {selectedExerciseId ? (
+        <EditExercise
+          exercise={
+            exercises.find(exercise => exercise.id === selectedExerciseId)!
+          }
+          onSaved={() => {
+            setSelectedExerciseId(null);
+            onSaved();
+          }}
+        />
+      ) : null}
+    </div>
+  );
+};
+
+type EditExerciseProps = {
+  exercise: Exercise;
+  onSaved: () => void;
+};
+const EditExercise: FC<EditExerciseProps> = props => {
+  const { exercise, onSaved } = props;
+  const exerciseNameInputRef = useRef<HTMLInputElement>(null);
+
+  const [isPending, setIsPending] = useState(false);
+
+  const runEdit = async (newName: string) => {
+    setIsPending(true);
+    await editExercise({
+      data: {
+        id: exercise.id,
+        name: newName,
+      },
+    });
+    setIsPending(false);
+    onSaved();
+  };
+
+  return (
+    <div className="flex flex-col gap-2 w-1/2">
+      <Input ref={exerciseNameInputRef} defaultValue={exercise.name} />
+      <Button
+        type="button"
+        disabled={isPending}
+        onClick={async () => {
+          const name = exerciseNameInputRef.current?.value ?? "";
+          await runEdit(name);
+        }}
+      >
+        {isPending ? "Saving..." : "Edit"}
+      </Button>
+    </div>
   );
 };
