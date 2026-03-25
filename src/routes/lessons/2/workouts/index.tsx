@@ -12,6 +12,10 @@ type Exercise = {
   name: string;
 };
 
+type RouteData = {
+  exercises: Exercise[];
+  workouts: Workout[];
+};
 function getWorkoutsAndExercises() {
   const workouts: Workout[] = [
     { id: 1, name: "Workout 1", exercises: [1, 2, 3] },
@@ -32,12 +36,14 @@ function getWorkoutsAndExercises() {
 
 export const Route = createFileRoute("/lessons/2/workouts/")({
   component: RouteComponent,
-  loader: async () => {
-    const { workouts, exercises } = getWorkoutsAndExercises();
+  loader: async (): Promise<RouteData> => {
+    //              ^ this will normally be inferred
+    // TODO: load your data
 
+    // TODO: Add a console.log statement here
     return {
-      workouts,
-      exercises,
+      workouts: [],
+      exercises: [],
     };
   },
   staleTime: 0,
@@ -46,6 +52,9 @@ export const Route = createFileRoute("/lessons/2/workouts/")({
 
 function RouteComponent() {
   const { workouts, exercises } = Route.useLoaderData();
+
+  // TODO: use getRouteApi
+
   const exerciseLookup = useMemo(() => {
     return new Map(exercises.map(exercise => [exercise.id, exercise]));
   }, [exercises]);
