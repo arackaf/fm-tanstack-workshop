@@ -35,12 +35,8 @@ function RouteComponent() {
     <div className="flex flex-col gap-4">
       <h1>Workouts</h1>
 
-      <Suspense fallback={<div>Loading...</div>}>
-        <RouteContents
-          workoutsPromise={workouts}
-          exercisesPromise={exercises}
-        />
-      </Suspense>
+      {/* TODO: wrap this */}
+      <RouteContents workoutsPromise={workouts} exercisesPromise={exercises} />
     </div>
   );
 }
