@@ -77,14 +77,12 @@ function WorkoutsListContent() {
       <div className="flex gap-2 items-center">
         <Button
           onClick={() => {
-            // startTransition(() => {
             navigate({
               to: "/lessons/11/workouts",
               search: {
                 page: page - 1,
               },
             });
-            // });
           }}
           disabled={workoutsPayload.page <= 1}
         >
@@ -92,14 +90,12 @@ function WorkoutsListContent() {
         </Button>
         <Button
           onClick={() => {
-            // startTransition(() => {
             navigate({
               to: "/lessons/11/workouts",
               search: {
                 page: page + 1,
               },
             });
-            // });
           }}
           disabled={!workoutsPayload.hasNextPage}
         >
