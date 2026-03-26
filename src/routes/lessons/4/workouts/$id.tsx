@@ -8,6 +8,8 @@ import { getInClassWorkoutById } from "@/server-functions/in-class/workouts-simp
 export const Route = createFileRoute("/lessons/4/workouts/$id")({
   component: RouteComponent,
   loader: async ({ params }) => {
+    console.log("\nLoading workout ", params.id, "\n");
+
     const [workout, exercises] = await Promise.all([
       getInClassWorkoutById({
         data: { id: Number(params.id) },

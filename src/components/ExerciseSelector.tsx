@@ -90,7 +90,7 @@ export function ExerciseSelector({
           optionA.name.localeCompare(optionB.name),
         ),
       }));
-  }, [exercises]);
+  }, [exercises, muscleGroupLookup]);
 
   const selectedOption = exercises.find(exercise => exercise.id === value);
   const selectedLabel = selectedOption

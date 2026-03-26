@@ -27,3 +27,13 @@ The options object we pass to `createFileRoute("/path")` takes _a lot_ of option
 ```
 
 With this configuration, the page will background refetch after 5 seconds, and may be completely ejected from cache after 10 seconds
+
+## Revalidation
+
+When you mutate some data and want to force a reload, you can call `router.invalidate`, which will reload active routes, and force all inactive routes to be invalidated, and re-fetched the next time they're browsed to.
+
+To be more fine-grained, you can pass a filter into `router.invalidate`
+
+`router.invalidate` leads to a stale while invalidate mechanism, where the old route content is rendered, while a background re-fetch is done.
+
+To purge old routes completely, and force a true refetch, use `router.clearCache`

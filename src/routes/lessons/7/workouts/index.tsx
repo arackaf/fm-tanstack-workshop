@@ -2,10 +2,10 @@ import { Suspense, use, useMemo, type FC } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { getExercisesServerFn } from "@/server-functions/exercises";
-import { getInClassWorkoutHistory } from "@/server-functions/in-class/workouts-simple";
+import { getInClassWorkoutHistoryServerFn } from "@/server-functions/in-class/workouts-simple";
 
 type WorkoutHistoryPayload = Awaited<
-  ReturnType<typeof getInClassWorkoutHistory>
+  ReturnType<typeof getInClassWorkoutHistoryServerFn>
 >;
 type Workout = WorkoutHistoryPayload["workouts"][number];
 type Exercise = Awaited<ReturnType<typeof getExercisesServerFn>>[number];
@@ -13,7 +13,7 @@ type Exercise = Awaited<ReturnType<typeof getExercisesServerFn>>[number];
 export const Route = createFileRoute("/lessons/7/workouts/")({
   component: RouteComponent,
   loader: async () => {
-    const workouts = getInClassWorkoutHistory({
+    const workouts = getInClassWorkoutHistoryServerFn({
       data: { operation: "load-workouts" },
     });
     const exercises = getExercisesServerFn({
