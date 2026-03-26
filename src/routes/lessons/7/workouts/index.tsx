@@ -45,10 +45,11 @@ function RouteComponent() {
   );
 }
 
-const RouteContents: FC<{
+type RouteContentsProps = {
   workoutsPromise: Promise<WorkoutHistoryPayload>;
   exercisesPromise: Promise<Exercise[]>;
-}> = ({ workoutsPromise, exercisesPromise }) => {
+};
+const RouteContents: FC<RouteContentsProps> = props => {
   // TODO: fix this
   const workoutsPayload: any = null;
   const exercises: any = null;
