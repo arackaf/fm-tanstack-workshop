@@ -26,6 +26,7 @@ import { getMuscleGroupsServerFn } from "@/server-functions/muscle-groups";
 export const Route = createFileRoute("/lessons/10/workouts/")({
   component: RouteComponent,
   loader: async ({ context }) => {
+    //TODO: await, or don't - your choice
     Promise.all([
       context.queryClient.ensureQueryData(workoutHistoryQueryOptions()),
       context.queryClient.ensureQueryData(exercisesQueryOptions()),
@@ -39,23 +40,22 @@ function RouteComponent() {
   return (
     <div className="flex flex-col gap-4">
       <h1>Workouts</h1>
-      <Suspense fallback={<span>Loading...</span>}>
-        <WorkoutsListContent />
-      </Suspense>
+      {/* TODO: wrap this */}
+      <WorkoutsListContent />
     </div>
   );
 }
 
 function WorkoutsListContent() {
   const [page, setPage] = useState(1);
-  const { data: workoutsPayload } = useSuspenseQuery(
-    workoutHistoryQueryOptions(page),
-  );
-  const { data: exercises, isFetching: isExercisesFetching } = useSuspenseQuery(
+
+  //TODO: fix this
+  const { data: workoutsPayload } = useQuery(workoutHistoryQueryOptions(page));
+  const { data: exercises, isFetching: isExercisesFetching } = useQuery(
     exercisesQueryOptions(),
   );
-  const [isPending, startTransition] = useTransition();
 
+  const isPending = false;
   const exerciseLookup = useMemo(() => {
     return new Map(exercises.map(exercise => [exercise.id, exercise]));
   }, [exercises]);
@@ -63,6 +63,7 @@ function WorkoutsListContent() {
   const queryClient = useQueryClient();
 
   const onExerciseSaved = () => {
+    // TODO: observe query invalidation
     queryClient.invalidateQueries({
       queryKey: exercisesQueryOptions().queryKey,
     });
@@ -100,9 +101,8 @@ function WorkoutsListContent() {
       <div className="flex gap-2 items-center">
         <Button
           onClick={() => {
-            startTransition(() => {
-              setPage(currentPage => currentPage - 1);
-            });
+            // TODO: make this not suspend
+            setPage(currentPage => currentPage - 1);
           }}
           disabled={workoutsPayload.page <= 1}
         >
@@ -110,9 +110,8 @@ function WorkoutsListContent() {
         </Button>
         <Button
           onClick={() => {
-            startTransition(() => {
-              setPage(currentPage => currentPage + 1);
-            });
+            // TODO: ditto this
+            setPage(currentPage => currentPage + 1);
           }}
           disabled={!workoutsPayload.hasNextPage}
         >
