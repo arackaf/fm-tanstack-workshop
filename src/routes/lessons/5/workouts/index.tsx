@@ -42,12 +42,13 @@ function RouteComponent() {
   const { workouts } = Route.useLoaderData();
   const { isFetching } = Route.useMatch();
 
-  const layoutRoute = getRouteApi("/lessons/5/workouts");
-  const { isFetching: isLayoutFetching } = layoutRoute.useMatch();
+  const exercises: any[] = [];
+  // TODO: then this read this from useLoaderData
 
-  const { exercises } = useLoaderData({
-    from: "/lessons/5/workouts",
-  });
+  // TODO: then read this from getRouteApi
+
+  // TODO: set up isLayoutFetching
+  const isLayoutFetching = false;
 
   const exerciseLookup = useMemo(() => {
     return new Map(exercises.map(exercise => [exercise.id, exercise]));
