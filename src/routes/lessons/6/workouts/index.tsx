@@ -21,8 +21,8 @@ export const Route = createFileRoute("/lessons/6/workouts/")({
     });
 
     return {
-      workouts,
-      exercises,
+      workouts: await workouts,
+      exercises: await exercises,
     };
   },
   gcTime: 0,
@@ -30,20 +30,13 @@ export const Route = createFileRoute("/lessons/6/workouts/")({
 });
 
 function RouteComponent() {
-  const { workouts: workoutsPromise, exercises: exercisesPromise } =
+  const { workouts: workoutsJunk, exercises: exercisesJunk } =
     Route.useLoaderData();
 
   const [workouts, setWorkouts] = useState<Workout[] | null>(null);
   const [exercises, setExercises] = useState<Exercise[] | null>(null);
 
-  useEffect(() => {
-    Promise.all([workoutsPromise, exercisesPromise]).then(
-      ([workoutsPayload, exercises]) => {
-        setWorkouts(workoutsPayload.workouts);
-        setExercises(exercises);
-      },
-    );
-  }, [workoutsPromise, exercisesPromise]);
+  // TODO: get those data!
 
   return (
     <div className="flex flex-col gap-4">
