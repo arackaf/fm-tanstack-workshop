@@ -8,10 +8,7 @@ import { workoutHistoryQueryOptions } from "@/server-functions/in-class/workouts
 export const Route = createFileRoute("/lessons/9/workouts/")({
   component: RouteComponent,
   loader: async ({ context }) => {
-    await Promise.all([
-      context.queryClient.ensureQueryData(workoutHistoryQueryOptions()),
-      context.queryClient.ensureQueryData(exercisesQueryOptions()),
-    ]);
+    // TODO: load data here
   },
   gcTime: 0,
   staleTime: 0,
