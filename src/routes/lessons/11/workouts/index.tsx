@@ -84,7 +84,6 @@ function WorkoutsListContent() {
                 page: page - 1,
               },
             });
-            //setPage(currentPage => currentPage - 1);
             // });
           }}
           disabled={workoutsPayload.page <= 1}
