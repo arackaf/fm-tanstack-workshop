@@ -26,8 +26,8 @@ export const Route = createFileRoute("/lessons/4/workouts/$id")({
   },
   pendingComponent: () => <div>Loading...</div>,
   pendingMs: 0,
-  gcTime: 1000 * 60 * 5,
-  staleTime: 1000 * 60 * 5,
+  staleTime: 0,
+  gcTime: 0,
 });
 
 function RouteComponent() {
