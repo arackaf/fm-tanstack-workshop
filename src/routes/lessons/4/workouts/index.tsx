@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { mutateWorkoutName } from "@/server-functions/in-class/mutate-workout-name";
 import {
-  getInClassWorkoutHistory,
+  getInClassWorkoutHistoryServerFn,
   type InClassWorkout,
 } from "@/server-functions/in-class/workouts-simple";
 
@@ -14,7 +14,7 @@ export const Route = createFileRoute("/lessons/4/workouts/")({
   loader: async () => {
     console.log("\nLoading workouts\n");
 
-    const workoutsPayload = await getInClassWorkoutHistory({
+    const workoutsPayload = await getInClassWorkoutHistoryServerFn({
       data: { operation: "load-workouts" },
     });
 
