@@ -10,31 +10,20 @@ import {
 } from "@/drizzle/schema";
 import { getDb } from "@/data/db";
 
-const getWorkouts = createServerFn({
-  method: "GET",
-}).handler(async () => {
-  const db = await getDb();
-  const workouts = await db
-    .select()
-    .from(workoutTable)
-    .orderBy(desc(workoutTable.workoutDate))
-    .limit(3);
+const getWorkouts = () => {
+  return [
+    { id: 1, name: "Workout 1", exercises: [1, 2] },
+    { id: 2, name: "Workout 2", exercises: [1, 2] },
+    { id: 3, name: "Workout 3", exercises: [1, 2] },
+  ];
+};
 
-  return workouts.map(workout => {
-    return {
-      ...workout,
-      exercises: [1, 2],
-    };
-  });
-});
-
-const getExercises = createServerFn({
-  method: "GET",
-}).handler(async () => {
-  const db = await getDb();
-
-  return db.select().from(exercisesTable).orderBy(asc(exercisesTable.name));
-});
+const getExercises = () => {
+  return [
+    { id: 1, name: "Exercise 1" },
+    { id: 2, name: "Exercise 2" },
+  ];
+};
 
 export const Route = createFileRoute("/lessons/3/workouts/")({
   component: RouteComponent,

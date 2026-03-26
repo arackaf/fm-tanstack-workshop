@@ -11,37 +11,27 @@ import {
   exercises as exercisesTable,
 } from "@/drizzle/schema";
 
-const getExercises = createServerFn({
-  method: "GET",
-}).handler(async () => {
-  const db = await getDb();
+const getWorkout = (id: number) => {
+  return {
+    id: 1,
+    name: "Workout 1",
+    workoutDate: "2026-01-01",
+    exercises: [1, 2],
+  };
+};
 
-  return db.select().from(exercisesTable).orderBy(asc(exercisesTable.name));
-});
-
-const getWorkout = createServerFn({
-  method: "GET",
-})
-  .inputValidator((input: { id: number }) => input)
-  .handler(async ({ data }) => {
-    const db = await getDb();
-    const workouts = await db
-      .select()
-      .from(workoutTable)
-      .where(eq(workoutTable.id, data.id));
-
-    const workout = workouts[0];
-    return {
-      ...workout,
-      exercises: [1, 2],
-    };
-  });
+const getExercises = () => {
+  return [
+    { id: 1, name: "Exercise 1" },
+    { id: 2, name: "Exercise 2" },
+  ];
+};
 
 export const Route = createFileRoute("/lessons/3/workouts/$id")({
   component: RouteComponent,
   loader: async ({ params }) => {
     const [workout, exercises] = await Promise.all([
-      getWorkout({ data: { id: Number(params.id) } }),
+      getWorkout(Number(params.id)),
       getExercises(),
     ]);
 
