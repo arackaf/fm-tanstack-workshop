@@ -19,7 +19,7 @@ export const workoutHistoryQueryOptions = (page: number = 1) => {
   return queryOptions({
     queryKey: ["workouts", page],
     queryFn: () => {
-      return getInClassWorkoutHistory({
+      return getInClassWorkoutHistoryServerFn({
         data: { page, operation: "load-workouts" },
       });
     },
@@ -29,10 +29,10 @@ export const workoutHistoryQueryOptions = (page: number = 1) => {
 };
 
 export type InClassWorkout = Awaited<
-  ReturnType<typeof getInClassWorkoutHistory>
+  ReturnType<typeof getInClassWorkoutHistoryServerFn>
 >["workouts"][number];
 
-export const getInClassWorkoutHistory = createServerFn({
+export const getInClassWorkoutHistoryServerFn = createServerFn({
   method: "GET",
 })
   .inputValidator((input: { page?: number }) => input)
