@@ -31,7 +31,7 @@ export const Route = createFileRoute("/lessons/4/workouts/")({
 function RouteComponent() {
   const { workouts } = Route.useLoaderData();
 
-  const { isFetching } = Route.useMatch();
+  const isFetching = false;
 
   return (
     <div className="flex flex-col gap-4">

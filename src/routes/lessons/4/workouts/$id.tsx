@@ -32,7 +32,7 @@ export const Route = createFileRoute("/lessons/4/workouts/$id")({
 
 function RouteComponent() {
   const { workout, exercises } = Route.useLoaderData();
-  const { isFetching } = Route.useMatch();
+  const isFetching = false;
 
   const exerciseLookup = useMemo(() => {
     return new Map(exercises.map(exercise => [exercise.id, exercise]));
