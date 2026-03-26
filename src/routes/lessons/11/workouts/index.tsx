@@ -36,9 +36,10 @@ function RouteComponent() {
 
 function WorkoutsListContent() {
   const { page } = Route.useSearch();
-  const deferredPage = useDeferredValue(page);
+  // TODO:
   const { data: workoutsPayload } = useSuspenseQuery(
-    workoutHistoryQueryOptions(deferredPage),
+    // TODO:
+    workoutHistoryQueryOptions(page),
   );
   const { data: exercises } = useSuspenseQuery(exercisesQueryOptions());
   const navigate = useNavigate();
@@ -47,7 +48,8 @@ function WorkoutsListContent() {
     return new Map(exercises.map(exercise => [exercise.id, exercise]));
   }, [exercises]);
 
-  const isPending = page !== deferredPage;
+  // TODO: fix this
+  const isPending = false;
 
   return (
     <div className="flex flex-col gap-4">
@@ -77,6 +79,7 @@ function WorkoutsListContent() {
       <div className="flex gap-2 items-center">
         <Button
           onClick={() => {
+            // TODO: this won't work :(
             // startTransition(() => {
             navigate({
               to: "/lessons/11/workouts",
