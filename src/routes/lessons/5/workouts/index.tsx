@@ -188,9 +188,7 @@ const Exercise: FC<{
           });
           setSaving(false);
 
-          await router.invalidate({
-            filter: route => route.routeId === "/lessons/5/workouts",
-          });
+          // TODO: invalidate the layout
         }}
       >
         Update exercise
