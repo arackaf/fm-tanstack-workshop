@@ -26,12 +26,14 @@ export const Route = createFileRoute("/lessons/4/workouts/$id")({
   },
   pendingComponent: () => <div>Loading...</div>,
   pendingMs: 0,
+  // TODO: set up cache times
   staleTime: 0,
   gcTime: 0,
 });
 
 function RouteComponent() {
   const { workout, exercises } = Route.useLoaderData();
+  // TODO: set up isFetching
   const isFetching = false;
 
   const exerciseLookup = useMemo(() => {

@@ -24,6 +24,7 @@ export const Route = createFileRoute("/lessons/4/workouts/")({
   },
   pendingComponent: () => <div>Loading...</div>,
   pendingMs: 0,
+  // TODO: set up cache times
   staleTime: 0,
   gcTime: 0,
 });
@@ -31,6 +32,7 @@ export const Route = createFileRoute("/lessons/4/workouts/")({
 function RouteComponent() {
   const { workouts } = Route.useLoaderData();
 
+  // TODO: set up isFetching
   const isFetching = false;
 
   return (
@@ -84,6 +86,12 @@ const RenderWorkout: FC<{
                 newName,
               },
             });
+
+            // TODO: add invalidate code (and increase cache times)
+
+            // TODO: make invalidate code more granular
+
+            // TODO: ditch stale while invalidate re-fetching
           }}
         >
           Update name
