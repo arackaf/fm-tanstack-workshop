@@ -49,8 +49,11 @@ const RouteContents: FC<{
   workoutsPromise: Promise<WorkoutHistoryPayload>;
   exercisesPromise: Promise<Exercise[]>;
 }> = ({ workoutsPromise, exercisesPromise }) => {
-  const workoutsPayload = use(workoutsPromise);
-  const exercises = use(exercisesPromise);
+  // TODO: fix this
+  const workoutsPayload: any = null;
+  const exercises: any = null;
+
+  // TODO: mention that route navigation, and revalidation do not (yet) work with transitions
 
   const exerciseLookup = useMemo(() => {
     return new Map(exercises.map(exercise => [exercise.id, exercise]));
