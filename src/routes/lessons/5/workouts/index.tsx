@@ -12,7 +12,7 @@ import { Input } from "@/components/ui/input";
 import { editExercise } from "@/server-functions/exercises";
 import { mutateWorkoutName } from "@/server-functions/in-class/mutate-workout-name";
 import {
-  getInClassWorkoutHistory,
+  getInClassWorkoutHistoryServerFn,
   type InClassWorkout,
 } from "@/server-functions/in-class/workouts-simple";
 
@@ -24,7 +24,7 @@ type InClassExercise = {
 export const Route = createFileRoute("/lessons/5/workouts/")({
   component: RouteComponent,
   loader: async () => {
-    const workoutsPayload = await getInClassWorkoutHistory({
+    const workoutsPayload = await getInClassWorkoutHistoryServerFn({
       data: { operation: "load-workouts" },
     });
 
