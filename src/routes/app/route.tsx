@@ -44,7 +44,7 @@ function RouteComponent() {
             Workout
           </Link>
           <Link
-            to="/app/log-body-composition"
+            to="/app/log-measurement"
             className={navLinkClassName}
             activeProps={activeNavLinkProps}
             inactiveProps={inactiveNavLinkProps}
@@ -110,7 +110,7 @@ function RouteComponent() {
                   Workout
                 </Link>
                 <Link
-                  to="/app/log-body-composition"
+                  to="/app/log-measurement"
                   className={`${navLinkClassName} w-full justify-start`}
                   activeProps={activeNavLinkProps}
                   inactiveProps={inactiveNavLinkProps}

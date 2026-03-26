@@ -6,7 +6,10 @@ import {
   bodyCompositionWeightUnit,
 } from "@/drizzle/schema";
 
-export type BodyCompositionMetric = typeof bodyCompositionMetric.$inferInsert;
+export type BodyCompositionMetric =
+  typeof bodyCompositionMetric.$inferInsert & {
+    id?: number;
+  };
 export type ExistingBodyCompositionMetric =
   typeof bodyCompositionMetric.$inferSelect;
 

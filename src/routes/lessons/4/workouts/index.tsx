@@ -5,14 +5,16 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { mutateWorkoutName } from "@/server-functions/in-class/mutate-workout-name";
 import {
-  getInClassWorkoutHistory,
+  getInClassWorkoutHistoryServerFn,
   type InClassWorkout,
 } from "@/server-functions/in-class/workouts-simple";
 
 export const Route = createFileRoute("/lessons/4/workouts/")({
   component: RouteComponent,
   loader: async () => {
-    const workoutsPayload = await getInClassWorkoutHistory({
+    console.log("\nLoading workouts\n");
+
+    const workoutsPayload = await getInClassWorkoutHistoryServerFn({
       data: { operation: "load-workouts" },
     });
 
@@ -83,10 +85,12 @@ const RenderWorkout: FC<{
               },
             });
             await router.invalidate({
+              filter: route => route.routeId === "/lessons/4/workouts/",
+            });
+            await router.invalidate({
               filter: route =>
-                route.routeId === "/lessons/4/workouts/" ||
-                (route.routeId === "/lessons/4/workouts/$id" &&
-                  route.params.id === String(workout.id)),
+                route.routeId === "/lessons/4/workouts/$id" &&
+                route.params.id === String(workout.id),
             });
           }}
         >

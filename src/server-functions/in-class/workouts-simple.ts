@@ -19,7 +19,7 @@ export const workoutHistoryQueryOptions = (page: number = 1) => {
   return queryOptions({
     queryKey: ["workouts", page],
     queryFn: () => {
-      return getInClassWorkoutHistory({
+      return getInClassWorkoutHistoryServerFn({
         data: { page, operation: "load-workouts" },
       });
     },
@@ -29,10 +29,10 @@ export const workoutHistoryQueryOptions = (page: number = 1) => {
 };
 
 export type InClassWorkout = Awaited<
-  ReturnType<typeof getInClassWorkoutHistory>
+  ReturnType<typeof getInClassWorkoutHistoryServerFn>
 >["workouts"][number];
 
-export const getInClassWorkoutHistory = createServerFn({
+export const getInClassWorkoutHistoryServerFn = createServerFn({
   method: "GET",
 })
   .inputValidator((input: { page?: number }) => input)
@@ -49,8 +49,12 @@ export const getInClassWorkoutHistory = createServerFn({
           id: workout.id,
           name: workout.name,
           date: workout.workoutDate,
-          exercises: workout.segments.flatMap(segment =>
-            segment.exercises.map(exercise => exercise.exerciseId),
+          exercises: Array.from(
+            new Set(
+              workout.segments.flatMap(segment =>
+                segment.exercises.map(exercise => exercise.exerciseId),
+              ),
+            ),
           ),
         };
       }),
@@ -76,8 +80,12 @@ export const getInClassWorkoutById = createServerFn({ method: "GET" })
         id: workout.id,
         name: workout.name,
         date: workout.workoutDate,
-        exercises: workout.segments.flatMap(segment =>
-          segment.exercises.map(exercise => exercise.exerciseId),
+        exercises: Array.from(
+          new Set(
+            workout.segments.flatMap(segment =>
+              segment.exercises.map(exercise => exercise.exerciseId),
+            ),
+          ),
         ),
       };
     }

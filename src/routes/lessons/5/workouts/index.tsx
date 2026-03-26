@@ -1,4 +1,4 @@
-import { useMemo, useRef, type FC } from "react";
+import { useMemo, useRef, useState, type FC } from "react";
 import {
   createFileRoute,
   getRouteApi,
@@ -12,7 +12,7 @@ import { Input } from "@/components/ui/input";
 import { editExercise } from "@/server-functions/exercises";
 import { mutateWorkoutName } from "@/server-functions/in-class/mutate-workout-name";
 import {
-  getInClassWorkoutHistory,
+  getInClassWorkoutHistoryServerFn,
   type InClassWorkout,
 } from "@/server-functions/in-class/workouts-simple";
 
@@ -24,7 +24,7 @@ type InClassExercise = {
 export const Route = createFileRoute("/lessons/5/workouts/")({
   component: RouteComponent,
   loader: async () => {
-    const workoutsPayload = await getInClassWorkoutHistory({
+    const workoutsPayload = await getInClassWorkoutHistoryServerFn({
       data: { operation: "load-workouts" },
     });
 
@@ -125,7 +125,7 @@ const RenderWorkout: FC<{
             await router.invalidate({
               filter: route => route.routeId === "/lessons/5/workouts/",
             });
-            await router.clearCache({
+            await router.invalidate({
               filter: route =>
                 route.routeId === "/lessons/5/workouts/$id" &&
                 route.params.id === String(workout.id),
@@ -164,6 +164,7 @@ const Exercise: FC<{
   exercise: InClassExercise;
 }> = props => {
   const { exercise } = props;
+  const [saving, setSaving] = useState(false);
   const exerciseNameInputRef = useRef<HTMLInputElement>(null);
 
   const router = useRouter();
@@ -173,14 +174,19 @@ const Exercise: FC<{
       <Input ref={exerciseNameInputRef} defaultValue={exercise.name} />
       <Button
         type="button"
+        disabled={saving}
         onClick={async () => {
           const name = exerciseNameInputRef.current?.value ?? "";
+
+          setSaving(true);
           await editExercise({
             data: {
               id: exercise.id,
               name,
             },
           });
+          setSaving(false);
+
           await router.invalidate({
             filter: route => route.routeId === "/lessons/5/workouts",
           });

@@ -10,7 +10,7 @@ import {
 } from "@/drizzle/schema";
 import { getDb } from "@/data/db";
 
-export const getWorkouts = createServerFn({
+const getWorkouts = createServerFn({
   method: "GET",
 }).handler(async () => {
   const db = await getDb();
@@ -28,7 +28,7 @@ export const getWorkouts = createServerFn({
   });
 });
 
-export const getExercises = createServerFn({
+const getExercises = createServerFn({
   method: "GET",
 }).handler(async () => {
   const db = await getDb();
