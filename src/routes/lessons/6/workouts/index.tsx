@@ -27,6 +27,7 @@ export const Route = createFileRoute("/lessons/6/workouts/")({
   },
   gcTime: 0,
   staleTime: 0,
+  pendingComponent: () => <div>Server Loading...</div>,
 });
 
 function RouteComponent() {
@@ -44,7 +45,7 @@ function RouteComponent() {
       {workouts && exercises ? (
         <RouteContents workouts={workouts} exercises={exercises} />
       ) : (
-        <div>Loading...</div>
+        <div>Client loading...</div>
       )}
     </div>
   );
