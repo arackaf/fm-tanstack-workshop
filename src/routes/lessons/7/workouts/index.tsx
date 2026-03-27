@@ -7,7 +7,6 @@ import { getInClassWorkoutHistoryServerFn } from "@/server-functions/in-class/wo
 type WorkoutHistoryPayload = Awaited<
   ReturnType<typeof getInClassWorkoutHistoryServerFn>
 >;
-type Workout = WorkoutHistoryPayload["workouts"][number];
 type Exercise = Awaited<ReturnType<typeof getExercisesServerFn>>[number];
 
 export const Route = createFileRoute("/lessons/7/workouts/")({
@@ -46,10 +45,13 @@ function RouteComponent() {
   );
 }
 
-const RouteContents: FC<{
+type RouteContentsProps = {
   workoutsPromise: Promise<WorkoutHistoryPayload>;
   exercisesPromise: Promise<Exercise[]>;
-}> = ({ workoutsPromise, exercisesPromise }) => {
+};
+const RouteContents: FC<RouteContentsProps> = props => {
+  const { workoutsPromise, exercisesPromise } = props;
+
   const workoutsPayload = use(workoutsPromise);
   const exercises = use(exercisesPromise);
 
