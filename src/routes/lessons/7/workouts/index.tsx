@@ -52,6 +52,8 @@ const RouteContents: FC<RouteContentsProps> = props => {
 
   // TODO: mention that route navigation, and revalidation do not (yet) work with transitions
 
+  // TODO: mention that Suspense boundaries should be used judiciously
+
   const exerciseLookup = useMemo(() => {
     return new Map(exercises.map(exercise => [exercise.id, exercise]));
   }, [exercises]);
