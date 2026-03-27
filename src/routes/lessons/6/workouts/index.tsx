@@ -13,10 +13,10 @@ type Exercise = Awaited<ReturnType<typeof getExercisesServerFn>>[number];
 export const Route = createFileRoute("/lessons/6/workouts/")({
   component: RouteComponent,
   loader: async () => {
-    const workouts = await getInClassWorkoutHistoryServerFn({
+    const workouts = getInClassWorkoutHistoryServerFn({
       data: { operation: "load-workouts" },
     });
-    const exercises = await getExercisesServerFn({
+    const exercises = getExercisesServerFn({
       data: { operation: "load-exercises" },
     });
 
@@ -27,10 +27,11 @@ export const Route = createFileRoute("/lessons/6/workouts/")({
   },
   gcTime: 0,
   staleTime: 0,
+  pendingComponent: () => <div>Server Loading...</div>,
 });
 
 function RouteComponent() {
-  const { workouts: workoutsJunk, exercises: exercisesJunk } =
+  const { workouts: workoutsPromise, exercises: exercisesPromise } =
     Route.useLoaderData();
 
   const [workouts, setWorkouts] = useState<Workout[] | null>(null);
@@ -44,7 +45,7 @@ function RouteComponent() {
       {workouts && exercises ? (
         <RouteContents workouts={workouts} exercises={exercises} />
       ) : (
-        <div>Loading...</div>
+        <div>Client loading...</div>
       )}
     </div>
   );
