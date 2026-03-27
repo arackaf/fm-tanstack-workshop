@@ -105,7 +105,8 @@ const RenderWorkout: FC<{
           <span>
             (
             {workout.exercises
-              .map(exercise => exerciseLookup.get(exercise)!.name)
+              .map(exercise => exerciseLookup.get(exercise)?.name)
+              .filter(Boolean)
               .join(", ")}
             )
           </span>
