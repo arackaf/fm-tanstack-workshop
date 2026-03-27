@@ -53,7 +53,8 @@ function RouteComponent() {
       <span>
         exercises:{" "}
         {workout.exercises
-          .map(exercise => exerciseLookup.get(exercise)!.name)
+          .map(exercise => exerciseLookup.get(exercise)?.name)
+          .filter(Boolean)
           .join(", ")}
       </span>
     </div>
