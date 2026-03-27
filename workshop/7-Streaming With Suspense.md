@@ -4,4 +4,4 @@
 
 - Stream data with Suspense
 
-Don't manually resolve promises - use `use`
+Don't manually resolve promises - use native React features
