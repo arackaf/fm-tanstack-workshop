@@ -25,8 +25,8 @@ function RouteComponent() {
   const { workout } = Route.useLoaderData();
   const { isFetching } = Route.useMatch();
 
-  const routeApi = getRouteApi("/lessons/5/workouts");
-  const { exercises } = routeApi.useLoaderData();
+  // TODO: then this from useLoaderData
+  const exercises: any[] = [];
 
   const exerciseLookup = useMemo(() => {
     return new Map(exercises.map(exercise => [exercise.id, exercise]));
