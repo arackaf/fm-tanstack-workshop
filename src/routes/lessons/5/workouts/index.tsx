@@ -125,12 +125,10 @@ const RenderWorkout: FC<{
               },
             });
             await router.invalidate({
-              filter: route => route.routeId === "/lessons/5/workouts/",
-            });
-            await router.invalidate({
               filter: route =>
-                route.routeId === "/lessons/5/workouts/$id" &&
-                route.params.id === String(workout.id),
+                route.routeId === "/lessons/5/workouts/" ||
+                (route.routeId === "/lessons/5/workouts/$id" &&
+                  route.params.id === String(workout.id)),
             });
           }}
         >
