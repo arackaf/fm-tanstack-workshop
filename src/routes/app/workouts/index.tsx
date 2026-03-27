@@ -11,11 +11,13 @@ import { SuspensePageLayout } from "@/components/SuspensePageLayout";
 import { Loading } from "@/components/loading-state/Loading";
 
 export const Route = createFileRoute("/app/workouts/")({
-  loader: ({ context }) => {
-    context.queryClient.ensureQueryData(
-      workoutHistoryQueryOptions({ page: 1 }),
-    );
-    context.queryClient.ensureQueryData(exercisesQueryOptions());
+  loader: async ({ context }) => {
+    await Promise.all([
+      context.queryClient.ensureQueryData(
+        workoutHistoryQueryOptions({ page: 1 }),
+      ),
+      context.queryClient.ensureQueryData(exercisesQueryOptions()),
+    ]);
   },
   component: RouteComponent,
   validateSearch: (search: Record<string, string>) => {
