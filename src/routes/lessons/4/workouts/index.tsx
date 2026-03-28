@@ -1,4 +1,4 @@
-import { useRef, type FC } from "react";
+import { useRef, useState, type FC } from "react";
 import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
 
 import { Button } from "@/components/ui/button";
@@ -57,6 +57,7 @@ const RenderWorkout: FC<{
   const { workout } = props;
   const workoutNameInputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
+  const [disabled, setDisabled] = useState(false);
 
   return (
     <div className="flex flex-col gap-2">
@@ -78,14 +79,18 @@ const RenderWorkout: FC<{
         <Input ref={workoutNameInputRef} defaultValue={workout.name} />
         <Button
           type="button"
+          disabled={disabled}
           onClick={async () => {
             const newName = workoutNameInputRef.current?.value ?? "";
+            setDisabled(true);
+            await new Promise(resolve => setTimeout(resolve, 1000));
             await mutateWorkoutName({
               data: {
                 id: workout.id,
                 newName,
               },
             });
+            setDisabled(false);
 
             // TODO: add invalidate code (and increase cache times)
 
