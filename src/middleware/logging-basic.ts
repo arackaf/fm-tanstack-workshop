@@ -1,17 +1,30 @@
-import { addNetworkTimingLog } from "@/server-functions/network-timing-logs";
+import {
+  addNetworkTimingLog,
+  setNetworkTimingLogClientEnd,
+} from "@/server-functions/network-timing-logs";
 import { createMiddleware } from "@tanstack/react-start";
 
 export const basicLoggingMiddleware = createMiddleware({ type: "function" })
   .inputValidator((input: { operation: string }) => input)
   .client(async ({ next }) => {
+    const clientStartTime = new Date();
+
     const result = await next({
       sendContext: {
-        clientStart: new Date(),
+        clientStart: clientStartTime,
       },
     });
 
     // @ts-expect-error
     const traceId = result.context.traceId;
+
+    const clientEndTime = new Date();
+    setNetworkTimingLogClientEnd({
+      data: {
+        traceId,
+        clientEnd: clientEndTime,
+      },
+    });
 
     return result;
   })

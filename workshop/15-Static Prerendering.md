@@ -19,6 +19,8 @@ export default defineConfig({
 });
 ```
 
+https://x.com/leerob/status/1969256190241640946
+
 See the docs for full options
 
 https://tanstack.com/start/latest/docs/framework/react/guide/static-prerendering
