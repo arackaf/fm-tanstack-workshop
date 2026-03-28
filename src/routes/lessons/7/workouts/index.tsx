@@ -26,6 +26,7 @@ export const Route = createFileRoute("/lessons/7/workouts/")({
   },
   gcTime: 0,
   staleTime: 0,
+  // TODO: add pending component
 });
 
 function RouteComponent() {
