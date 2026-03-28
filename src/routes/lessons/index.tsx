@@ -27,7 +27,7 @@ const lessonSummaryHeading: { [key in LessonKey]: string } = {
   4: "Route caching",
   5: "Data in layouts",
   6: "Streaming I",
-  7: "Streaming II",
+  7: "Streaming and Suspense",
   8: "Introducing TanStack Query",
   9: "Integrating TanStack Query",
   10: "TanStack Query and Suspense I",

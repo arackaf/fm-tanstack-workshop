@@ -1,4 +1,7 @@
-import { addNetworkTimingLog } from "@/server-functions/network-timing-logs";
+import {
+  addNetworkTimingLog,
+  setNetworkTimingLogClientEnd,
+} from "@/server-functions/network-timing-logs";
 import { createMiddleware } from "@tanstack/react-start";
 
 const loggingMiddlewareInput = createMiddleware({ type: "function" })
@@ -47,6 +50,14 @@ export const loggingMiddleware = createMiddleware({ type: "function" })
     const result = await next();
 
     const traceId = result.context.traceId;
+
+    const clientEndTime = new Date();
+    setNetworkTimingLogClientEnd({
+      data: {
+        traceId,
+        clientEnd: clientEndTime,
+      },
+    });
 
     return result;
   });
