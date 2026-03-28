@@ -211,6 +211,7 @@ const ViewWorkout: FC<{ workoutId: number; onDone: () => void }> = props => {
     isFetching,
   } = useQuery({
     // TODO: note queryKey - it's hierarchical
+    // TODO: note the caching
     queryKey: ["workout", workoutId],
     queryFn: async () => {
       const result = await getWorkoutsWithExerciseNames({
