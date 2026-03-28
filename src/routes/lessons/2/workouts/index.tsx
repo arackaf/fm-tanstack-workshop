@@ -34,6 +34,8 @@ function getWorkoutsAndExercises() {
   };
 }
 
+// TODO: loads are isomorphic!!!!!
+
 export const Route = createFileRoute("/lessons/2/workouts/")({
   component: RouteComponent,
   loader: async (): Promise<RouteData> => {
