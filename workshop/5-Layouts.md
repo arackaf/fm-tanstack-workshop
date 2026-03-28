@@ -6,6 +6,12 @@
 - Load data in it (yes you can do that)
 - Revalidate our layout
 
+## Layouts 101
+
+- Specify via the name route.tsx
+- Allows you to specify shared markup for all pages underneath
+- Allows you to load data for use by all pages underneath
+
 ## Layouts are not special
 
 ```ts
