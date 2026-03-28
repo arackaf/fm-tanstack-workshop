@@ -7,12 +7,14 @@ import { getExercises } from "@/data/exercises/get-exercises";
 import { exercises as exercisesTable } from "@/drizzle/schema";
 import { DELAY_MS } from "@/APPLICATION-SETTINGS";
 import { loggingMiddleware } from "@/middleware/logging-full";
+import { addServerFunction } from "@/middleware/refetch-lookup";
 
 export const getExercisesServerFn = createServerFn({ method: "GET" })
   .middleware([loggingMiddleware])
   .handler(async () => {
     return getExercises();
   });
+addServerFunction("load-exercises", getExercisesServerFn);
 
 export const exercisesQueryOptions = () =>
   queryOptions({

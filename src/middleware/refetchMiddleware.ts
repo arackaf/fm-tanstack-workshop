@@ -2,6 +2,7 @@ import type { RefetchPayload } from "@/data/util/refetch-query-options";
 import { hashKey } from "@tanstack/react-query";
 import type { QueryClient, QueryKey } from "@tanstack/react-query";
 import { createMiddleware, getRouterInstance } from "@tanstack/react-start";
+import { getServerFunction } from "./refetch-lookup";
 
 type RefetchMiddlewareConfig = {
   refetch: QueryKey[];
@@ -35,7 +36,7 @@ const prelimRefetchMiddleware = createMiddleware({ type: "function" })
       if (revalidatePayload) {
         revalidate.refetch.push({
           key: entry.queryKey,
-          fn: revalidatePayload.fn,
+          fnKey: revalidatePayload.fnKey,
           arg: revalidatePayload.arg,
         });
       }
@@ -55,17 +56,22 @@ const prelimRefetchMiddleware = createMiddleware({ type: "function" })
     });
 
     const allPayloads = context.revalidate.refetch.map(refetchPayload => {
-      return {
-        key: refetchPayload.key,
-        result: refetchPayload.fn({ data: refetchPayload.arg }),
-      };
+      const serverFn = getServerFunction(refetchPayload.fnKey);
+      return serverFn
+        ? {
+            key: refetchPayload.key,
+            result: serverFn({ data: refetchPayload.arg }),
+          }
+        : null;
     });
 
     for (const refetchPayload of allPayloads) {
-      result.sendContext.payloads.push({
-        key: refetchPayload.key,
-        result: await refetchPayload.result,
-      });
+      if (refetchPayload) {
+        result.sendContext.payloads.push({
+          key: refetchPayload.key,
+          result: await refetchPayload.result,
+        });
+      }
     }
 
     return result;

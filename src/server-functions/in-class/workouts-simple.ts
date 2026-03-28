@@ -14,6 +14,7 @@ import {
 } from "@/drizzle/schema";
 import { DELAY_MS } from "@/APPLICATION-SETTINGS";
 import { loggingMiddleware } from "@/middleware/logging-full";
+import { addServerFunction } from "@/middleware/refetch-lookup";
 
 export const workoutHistoryQueryOptions = (page: number = 1) => {
   return queryOptions({
@@ -179,3 +180,4 @@ export const getWorkoutsWithExerciseNames = createServerFn({
       hasNextPage,
     };
   });
+addServerFunction("workouts-list", getWorkoutsWithExerciseNames);
