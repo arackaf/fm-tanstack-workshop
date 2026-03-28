@@ -3,15 +3,16 @@ import { Input } from "@/components/ui/input";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useRef } from "react";
 
-// TODO: Add a layout
+// TODO: 6. Add a layout
 
+// TODO: 1. desscribe route structure / show off dev tools
 export const Route = createFileRoute("/lessons/1/workouts/")({
   component: RouteComponent,
-  // TODO: add search param
+  // TODO: 2. add search param
 });
 
 function RouteComponent() {
-  // TODO: make this go away
+  // TODO: 3. make this go away
   const { search } = Route.useSearch();
   const searchRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
@@ -32,7 +33,7 @@ function RouteComponent() {
         <Button
           variant="outline"
           onClick={() => {
-            // TODO: Set search param
+            // 4. TODO: Set search param
           }}
         >
           Search
@@ -43,7 +44,7 @@ function RouteComponent() {
           <span className="flex gap-2">
             <span>{workout.name}</span>
 
-            {/* TODO: Link to workout (add ml-auto) */}
+            {/* 5. TODO: Link to workout (add ml-auto) */}
           </span>
         </div>
       ))}
