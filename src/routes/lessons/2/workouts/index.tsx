@@ -38,14 +38,13 @@ function getWorkoutsAndExercises() {
 
 export const Route = createFileRoute("/lessons/2/workouts/")({
   component: RouteComponent,
-  loader: async (): Promise<RouteData> => {
-    //              ^ this will normally be inferred
-    // TODO: load your data
+  loader: async () => {
+    const { exercises, workouts } = getWorkoutsAndExercises();
 
     // TODO: Add a console.log statement here
     return {
-      workouts: [],
-      exercises: [],
+      workouts,
+      exercises,
     };
   },
   staleTime: 0,
@@ -53,9 +52,12 @@ export const Route = createFileRoute("/lessons/2/workouts/")({
 });
 
 function RouteComponent() {
-  const { workouts, exercises } = Route.useLoaderData();
+  // TODO: load loader data
 
   // TODO: use getRouteApi
+
+  const workouts: any[] = [];
+  const exercises: any = [];
 
   const exerciseLookup = useMemo(() => {
     return new Map(exercises.map(exercise => [exercise.id, exercise]));
