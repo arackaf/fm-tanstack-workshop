@@ -3,13 +3,13 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 export const Route = createFileRoute("/lessons/14/workouts/")({
   component: RouteComponent,
   loader: async () => {
-    const workoutsResp = await fetch(
-      "http://localhost:3000/lessons/14/workouts/workouts-api",
-    );
-    const workouts: { id: number; name: string }[] = await workoutsResp.json();
+    // const workoutsResp = await fetch(
+    //   "http://localhost:3000/lessons/14/workouts/workouts-api",
+    // );
+    // const workouts: { id: number; name: string }[] = await workoutsResp.json();
 
     return {
-      workouts,
+      workouts: [] as any[],
     };
   },
   gcTime: 0,

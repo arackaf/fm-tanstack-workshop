@@ -13,16 +13,7 @@ function RouteComponent() {
   const { data } = useQuery({
     queryKey: ["workouts-server-route"],
     queryFn: async () => {
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      const workoutsResp = await fetch("/lessons/14/workouts/workouts-api-2");
-      const workouts: { id: number; name: string }[] =
-        await workoutsResp.json();
-
-      console.log(workouts);
-
-      return {
-        workouts,
-      };
+      return { workouts: [] as any[] };
     },
   });
 
