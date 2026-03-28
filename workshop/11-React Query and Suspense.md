@@ -1,3 +1,0 @@
-# React Query and Suspense
-
-Let's make this quick ...

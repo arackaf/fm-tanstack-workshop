@@ -13,7 +13,7 @@ import {
   workoutSegmentExercise as workoutSegmentExerciseTable,
 } from "@/drizzle/schema";
 import { DELAY_MS } from "@/APPLICATION-SETTINGS";
-import { basicLoggingMiddleware } from "@/middleware/logging-basic";
+import { loggingMiddleware } from "@/middleware/logging-full";
 
 export const workoutHistoryQueryOptions = (page: number = 1) => {
   return queryOptions({
@@ -36,7 +36,7 @@ export const getInClassWorkoutHistoryServerFn = createServerFn({
   method: "GET",
 })
   .inputValidator((input: { page?: number }) => input)
-  .middleware([basicLoggingMiddleware])
+  .middleware([loggingMiddleware])
   .handler(async ({ data }) => {
     const payload = await getWorkouts({
       page: data?.page ?? 1,
