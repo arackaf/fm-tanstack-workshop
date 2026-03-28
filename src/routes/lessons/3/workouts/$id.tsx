@@ -1,10 +1,10 @@
 import { useMemo } from "react";
-import { asc, desc, eq } from "drizzle-orm";
 
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { createServerFn } from "@tanstack/react-start";
 
-import { getDb } from "@/data/db";
+// import { createServerFn } from "@tanstack/react-start";
+// import { asc, desc, eq } from "drizzle-orm";
+// import { getDb } from "@/data/db";
 
 import {
   workout as workoutTable,
