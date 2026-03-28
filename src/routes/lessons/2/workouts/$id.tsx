@@ -16,8 +16,6 @@ type Exercise = {
 export const Route = createFileRoute("/lessons/2/workouts/$id")({
   component: RouteComponent,
   loader: ({ params }) => {
-    console.log("\n\nI'm in the $id loader!\n\n");
-
     const workout: Workout = {
       id: Number(params.id),
       name: "My Workout",
