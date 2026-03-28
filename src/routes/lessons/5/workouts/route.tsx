@@ -2,6 +2,8 @@ import { createFileRoute, Outlet } from "@tanstack/react-router";
 
 import { getExercisesServerFn } from "@/server-functions/exercises";
 
+// TODO: limited ability to split data amongst layouts
+
 export const Route = createFileRoute("/lessons/5/workouts")({
   component: RouteComponent,
   loader: async () => {
