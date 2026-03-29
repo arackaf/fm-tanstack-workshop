@@ -1,16 +1,11 @@
 import { Input } from "@/components/ui/input";
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const LOCAL_STORAGE_KEY = "lesson-15-value";
 
 export const Route = createFileRoute("/lessons/15/")({
   component: RouteComponent,
-  loader: () => {
-    return {
-      loaderValue: "123",
-    };
-  },
   gcTime: 0,
   staleTime: 0,
 });
