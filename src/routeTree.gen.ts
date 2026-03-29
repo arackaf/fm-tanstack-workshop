@@ -15,6 +15,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as LessonsIndexRouteImport } from './routes/lessons/index'
 import { Route as AppIndexRouteImport } from './routes/app/index'
 import { Route as AppAdminRouteRouteImport } from './routes/app/admin/route'
+import { Route as Lessons16IndexRouteImport } from './routes/lessons/16/index'
 import { Route as Lessons15IndexRouteImport } from './routes/lessons/15/index'
 import { Route as AppWorkoutsIndexRouteImport } from './routes/app/workouts/index'
 import { Route as AppMeasurementsIndexRouteImport } from './routes/app/measurements/index'
@@ -90,6 +91,11 @@ const AppAdminRouteRoute = AppAdminRouteRouteImport.update({
   id: '/admin',
   path: '/admin',
   getParentRoute: () => AppRouteRoute,
+} as any)
+const Lessons16IndexRoute = Lessons16IndexRouteImport.update({
+  id: '/16/',
+  path: '/16/',
+  getParentRoute: () => LessonsRouteRoute,
 } as any)
 const Lessons15IndexRoute = Lessons15IndexRouteImport.update({
   id: '/15/',
@@ -344,6 +350,7 @@ export interface FileRoutesByFullPath {
   '/app/measurements/': typeof AppMeasurementsIndexRoute
   '/app/workouts/': typeof AppWorkoutsIndexRoute
   '/lessons/15/': typeof Lessons15IndexRoute
+  '/lessons/16/': typeof Lessons16IndexRoute
   '/lessons/1/workouts/$id': typeof Lessons1WorkoutsIdRoute
   '/lessons/10/workouts/$id': typeof Lessons10WorkoutsIdRoute
   '/lessons/11/workouts/$id': typeof Lessons11WorkoutsIdRoute
@@ -393,6 +400,7 @@ export interface FileRoutesByTo {
   '/app/measurements': typeof AppMeasurementsIndexRoute
   '/app/workouts': typeof AppWorkoutsIndexRoute
   '/lessons/15': typeof Lessons15IndexRoute
+  '/lessons/16': typeof Lessons16IndexRoute
   '/lessons/1/workouts/$id': typeof Lessons1WorkoutsIdRoute
   '/lessons/10/workouts/$id': typeof Lessons10WorkoutsIdRoute
   '/lessons/11/workouts/$id': typeof Lessons11WorkoutsIdRoute
@@ -447,6 +455,7 @@ export interface FileRoutesById {
   '/app/measurements/': typeof AppMeasurementsIndexRoute
   '/app/workouts/': typeof AppWorkoutsIndexRoute
   '/lessons/15/': typeof Lessons15IndexRoute
+  '/lessons/16/': typeof Lessons16IndexRoute
   '/lessons/1/workouts/$id': typeof Lessons1WorkoutsIdRoute
   '/lessons/10/workouts/$id': typeof Lessons10WorkoutsIdRoute
   '/lessons/11/workouts/$id': typeof Lessons11WorkoutsIdRoute
@@ -502,6 +511,7 @@ export interface FileRouteTypes {
     | '/app/measurements/'
     | '/app/workouts/'
     | '/lessons/15/'
+    | '/lessons/16/'
     | '/lessons/1/workouts/$id'
     | '/lessons/10/workouts/$id'
     | '/lessons/11/workouts/$id'
@@ -551,6 +561,7 @@ export interface FileRouteTypes {
     | '/app/measurements'
     | '/app/workouts'
     | '/lessons/15'
+    | '/lessons/16'
     | '/lessons/1/workouts/$id'
     | '/lessons/10/workouts/$id'
     | '/lessons/11/workouts/$id'
@@ -604,6 +615,7 @@ export interface FileRouteTypes {
     | '/app/measurements/'
     | '/app/workouts/'
     | '/lessons/15/'
+    | '/lessons/16/'
     | '/lessons/1/workouts/$id'
     | '/lessons/10/workouts/$id'
     | '/lessons/11/workouts/$id'
@@ -691,6 +703,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/app/admin'
       preLoaderRoute: typeof AppAdminRouteRouteImport
       parentRoute: typeof AppRouteRoute
+    }
+    '/lessons/16/': {
+      id: '/lessons/16/'
+      path: '/16'
+      fullPath: '/lessons/16/'
+      preLoaderRoute: typeof Lessons16IndexRouteImport
+      parentRoute: typeof LessonsRouteRoute
     }
     '/lessons/15/': {
       id: '/lessons/15/'
@@ -1087,6 +1106,7 @@ interface LessonsRouteRouteChildren {
   LessonsIndexRoute: typeof LessonsIndexRoute
   Lessons5WorkoutsRouteRoute: typeof Lessons5WorkoutsRouteRouteWithChildren
   Lessons15IndexRoute: typeof Lessons15IndexRoute
+  Lessons16IndexRoute: typeof Lessons16IndexRoute
   Lessons1WorkoutsIdRoute: typeof Lessons1WorkoutsIdRoute
   Lessons10WorkoutsIdRoute: typeof Lessons10WorkoutsIdRoute
   Lessons11WorkoutsIdRoute: typeof Lessons11WorkoutsIdRoute
@@ -1119,6 +1139,7 @@ const LessonsRouteRouteChildren: LessonsRouteRouteChildren = {
   LessonsIndexRoute: LessonsIndexRoute,
   Lessons5WorkoutsRouteRoute: Lessons5WorkoutsRouteRouteWithChildren,
   Lessons15IndexRoute: Lessons15IndexRoute,
+  Lessons16IndexRoute: Lessons16IndexRoute,
   Lessons1WorkoutsIdRoute: Lessons1WorkoutsIdRoute,
   Lessons10WorkoutsIdRoute: Lessons10WorkoutsIdRoute,
   Lessons11WorkoutsIdRoute: Lessons11WorkoutsIdRoute,
@@ -1162,10 +1183,11 @@ export const routeTree = rootRouteImport
   ._addFileTypes<FileRouteTypes>()
 
 import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
+import type { startInstance } from './start.ts'
 declare module '@tanstack/react-start' {
   interface Register {
     ssr: true
     router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
   }
 }
