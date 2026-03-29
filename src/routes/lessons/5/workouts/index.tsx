@@ -50,6 +50,8 @@ function RouteComponent() {
   // TODO: set up isLayoutFetching
   const isLayoutFetching = false;
 
+  // TODO: set up pathless layout(s)?
+
   const exerciseLookup = useMemo(() => {
     return new Map(exercises.map(exercise => [exercise.id, exercise]));
   }, [exercises]);
