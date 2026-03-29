@@ -15,6 +15,7 @@ export const Route = createFileRoute("/lessons/11/workouts/")({
   },
   loader: async ({ context }) => {
     Promise.all([
+      // todo: use correct page value in server load
       context.queryClient.ensureQueryData(workoutHistoryQueryOptions()),
       context.queryClient.ensureQueryData(exercisesQueryOptions()),
     ]);
