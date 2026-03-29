@@ -19,7 +19,8 @@ type LessonKey =
   | "12"
   | "13"
   | "14"
-  | "15";
+  | "15"
+  | "16";
 const lessonSummaryHeading: { [key in LessonKey]: string } = {
   1: "Routing",
   2: "Loaders",
@@ -35,7 +36,8 @@ const lessonSummaryHeading: { [key in LessonKey]: string } = {
   12: "Middleware",
   13: "Advanced Middleware",
   14: "API Routes",
-  15: "Static Pre-rendering",
+  15: "Selective Hydration",
+  16: "Static Pre-rendering",
 };
 
 type PageledLessonKey = "11";
