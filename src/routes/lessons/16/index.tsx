@@ -1,4 +1,6 @@
+import { Input } from "@/components/ui/input";
 import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
 
 export const Route = createFileRoute("/lessons/16/")({
   component: RouteComponent,
@@ -9,11 +11,9 @@ export const Route = createFileRoute("/lessons/16/")({
 function RouteComponent() {
   return (
     <div className="flex flex-col gap-4">
-      <h1>Static Pre-rendering</h1>
+      <h1>Static prerendering</h1>
 
-      <div className="flex">
-        And now, for something completely different ...
-      </div>
+      <span>And now, for something completely different</span>
     </div>
   );
 }
