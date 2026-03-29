@@ -1,6 +1,8 @@
 import { Input } from "@/components/ui/input";
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+const LOCAL_STORAGE_KEY = "lesson-15-value";
 
 export const Route = createFileRoute("/lessons/15/")({
   component: RouteComponent,
@@ -15,15 +17,18 @@ export const Route = createFileRoute("/lessons/15/")({
 
 function RouteComponent() {
   const [value, setValue] = useState(
-    () => localStorage.getItem("lesson-15-value") || "Default",
+    () => localStorage.getItem(LOCAL_STORAGE_KEY) || "Default",
   );
+
   return (
     <div className="flex flex-col gap-4">
       <h1>Selective hydration</h1>
 
       <Input
+        value={value}
         onChange={evt => {
-          localStorage.setItem("lesson-15-value", evt.target.value);
+          setValue(evt.target.value);
+          localStorage.setItem(LOCAL_STORAGE_KEY, evt.target.value);
         }}
       />
     </div>
