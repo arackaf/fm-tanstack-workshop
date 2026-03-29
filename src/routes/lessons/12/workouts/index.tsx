@@ -12,7 +12,7 @@ export const Route = createFileRoute("/lessons/12/workouts/")({
 
 const __prelim_middleware1 = createMiddleware({ type: "function" })
   .inputValidator((input: { middlewareArg: string }) => input)
-  .client(async ({ data, next, context }) => {
+  .client(async ({ data, next }) => {
     const { middlewareArg } = data;
 
     console.log("In middleware on Client, before", middlewareArg);
@@ -51,7 +51,7 @@ const __prelim_middleware1 = createMiddleware({ type: "function" })
 
 const middleware1 = createMiddleware({ type: "function" })
   .middleware([__prelim_middleware1])
-  .client(async ({ next, context }) => {
+  .client(async ({ next }) => {
     const result = await next();
 
     const xxx = result.context.valueSentFromServerToClient;
