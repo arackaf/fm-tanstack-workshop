@@ -6,11 +6,14 @@ const LOCAL_STORAGE_KEY = "lesson-15-value";
 
 export const Route = createFileRoute("/lessons/15/")({
   component: RouteComponent,
+  // TODO: 2. move default value to loader
   gcTime: 0,
   staleTime: 0,
+  // TODO: 3. get pending component
 });
 
 function RouteComponent() {
+  // TODO: 1. fix this
   const [value, setValue] = useState(
     () => localStorage.getItem(LOCAL_STORAGE_KEY) || "Default",
   );
