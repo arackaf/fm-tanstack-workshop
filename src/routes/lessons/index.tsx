@@ -19,7 +19,8 @@ type LessonKey =
   | "12"
   | "13"
   | "14"
-  | "15";
+  | "15"
+  | "16";
 const lessonSummaryHeading: { [key in LessonKey]: string } = {
   1: "Routing",
   2: "Loaders",
@@ -35,11 +36,13 @@ const lessonSummaryHeading: { [key in LessonKey]: string } = {
   12: "Middleware",
   13: "Advanced Middleware",
   14: "API Routes",
-  15: "Static Pre-rendering",
+  15: "Selective Hydration",
+  16: "Static Pre-rendering",
 };
 
 type PageledLessonKey = "11";
-type PagelessLessonKey = Exclude<LessonKey, PageledLessonKey | "15">;
+type PagesWithIndex = "15" | "16";
+type PagelessLessonKey = Exclude<LessonKey, PageledLessonKey | PagesWithIndex>;
 
 function RouteComponent() {
   return (
@@ -57,7 +60,7 @@ function RouteComponent() {
             >
               Lesson {idx} - {desc}
             </Link>
-          ) : idx === "15" ? (
+          ) : idx === "15" || idx === "16" ? (
             <Link
               to={`/lessons/${idx}`}
               preload={false}
