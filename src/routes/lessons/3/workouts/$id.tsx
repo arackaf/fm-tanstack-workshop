@@ -6,6 +6,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 // import { asc, desc, eq } from "drizzle-orm";
 // import { getDb } from "@/data/db";
 
+// TODO: implement same server functions here
+
 import {
   workout as workoutTable,
   exercises as exercisesTable,
