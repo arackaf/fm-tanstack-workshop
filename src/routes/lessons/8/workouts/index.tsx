@@ -146,6 +146,8 @@ const EditExercise: FC<EditExerciseProps> = props => {
       queryClient.invalidateQueries({ queryKey: ["workouts"] });
       // TODO: 5. note the queryKey - we invalidate ALL workouts
       queryClient.invalidateQueries({ queryKey: ["workout"], exact: false });
+      // TODO: 6. run edits
+      // TODO: 7. tweak invalidation - reload inactive workouts
 
       onSaved();
     },
