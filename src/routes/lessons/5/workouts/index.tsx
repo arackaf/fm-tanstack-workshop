@@ -43,14 +43,14 @@ function RouteComponent() {
   const { isFetching } = Route.useMatch();
 
   const exercises: any[] = [];
-  // TODO: then this read this from useLoaderData
+  // TODO: 1. Read this from layout from useLoaderData
 
-  // TODO: then read this from getRouteApi
+  // TODO: 2. Then read this from getRouteApi
 
-  // TODO: set up isLayoutFetching
+  // TODO: 3. set up isLayoutFetching
   const isLayoutFetching = false;
 
-  // TODO: set up pathless layout(s)?
+  // TODO: 5. Set up pathless layout(s)
 
   const exerciseLookup = useMemo(() => {
     return new Map(exercises.map(exercise => [exercise.id, exercise]));
@@ -189,7 +189,7 @@ const Exercise: FC<{
           });
           setSaving(false);
 
-          // TODO: invalidate the layout
+          // 4. TODO: invalidate the layout
         }}
       >
         Update exercise
