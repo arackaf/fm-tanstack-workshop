@@ -26,7 +26,7 @@ import { getMuscleGroupsServerFn } from "@/server-functions/muscle-groups";
 export const Route = createFileRoute("/lessons/10/workouts/")({
   component: RouteComponent,
   loader: async ({ context }) => {
-    //TODO: await, or don't - your choice
+    //TODO: 1. await, or don't - your choice
     Promise.all([
       context.queryClient.ensureQueryData(workoutHistoryQueryOptions()),
       context.queryClient.ensureQueryData(exercisesQueryOptions()),
@@ -40,7 +40,7 @@ function RouteComponent() {
   return (
     <div className="flex flex-col gap-4">
       <h1>Workouts</h1>
-      {/* TODO: wrap this */}
+      {/* TODO: 2. wrap this */}
       <WorkoutsListContent />
     </div>
   );
@@ -49,7 +49,7 @@ function RouteComponent() {
 function WorkoutsListContent() {
   const [page, setPage] = useState(1);
 
-  //TODO: fix this
+  //TODO: 3. fix this
   const { data: workoutsPayload } = useQuery(workoutHistoryQueryOptions(page));
   const { data: exercises, isFetching: isExercisesFetching } = useQuery(
     exercisesQueryOptions(),
@@ -63,7 +63,7 @@ function WorkoutsListContent() {
   const queryClient = useQueryClient();
 
   const onExerciseSaved = () => {
-    // TODO: observe query invalidation
+    // TODO: 4. observe query invalidation
     queryClient.invalidateQueries({
       queryKey: exercisesQueryOptions().queryKey,
     });
@@ -101,7 +101,7 @@ function WorkoutsListContent() {
       <div className="flex gap-2 items-center">
         <Button
           onClick={() => {
-            // TODO: make this not suspend
+            // TODO: 5. make this not suspend
             setPage(currentPage => currentPage - 1);
           }}
           disabled={workoutsPayload.page <= 1}
@@ -110,7 +110,7 @@ function WorkoutsListContent() {
         </Button>
         <Button
           onClick={() => {
-            // TODO: ditto this
+            // TODO: 6. ditto this
             setPage(currentPage => currentPage + 1);
           }}
           disabled={!workoutsPayload.hasNextPage}
