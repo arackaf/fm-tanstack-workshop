@@ -7,7 +7,7 @@ import { workoutHistoryQueryOptions } from "@/server-functions/in-class/workouts
 
 export const Route = createFileRoute("/lessons/9/workouts/")({
   component: RouteComponent,
-  // TODO: loaders are ...
+  // loaders are ...
   loader: async ({ context }) => {
     // TODO: load data here
   },
@@ -16,6 +16,7 @@ export const Route = createFileRoute("/lessons/9/workouts/")({
 });
 
 function RouteComponent() {
+  // TODO: seed client-side data - verify in dev tools
   const { data: workoutsPayload, isLoading: isWorkoutsLoading } = useQuery(
     workoutHistoryQueryOptions(),
   );
