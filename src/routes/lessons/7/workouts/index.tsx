@@ -26,7 +26,7 @@ export const Route = createFileRoute("/lessons/7/workouts/")({
   },
   gcTime: 0,
   staleTime: 0,
-  // TODO: add pending component
+  // TODO: 4. Use a pending component
 });
 
 function RouteComponent() {
@@ -36,7 +36,7 @@ function RouteComponent() {
     <div className="flex flex-col gap-4">
       <h1>Workouts</h1>
 
-      {/* TODO: wrap this */}
+      {/* TODO: 1. wrap this */}
       <RouteContents workoutsPromise={workouts} exercisesPromise={exercises} />
     </div>
   );
@@ -47,13 +47,11 @@ type RouteContentsProps = {
   exercisesPromise: Promise<Exercise[]>;
 };
 const RouteContents: FC<RouteContentsProps> = props => {
-  // TODO: fix this
+  // TODO: 2. fix this
   const workoutsPayload: any = null;
   const exercises: any = null;
 
-  // TODO: mention that route navigation, and revalidation do not (yet) work with transitions
-
-  // TODO: mention that Suspense boundaries should be used judiciously
+  // TODO: 3. Suspense boundaries should be used judiciously!
 
   const exerciseLookup = useMemo(() => {
     return new Map(exercises.map(exercise => [exercise.id, exercise]));
