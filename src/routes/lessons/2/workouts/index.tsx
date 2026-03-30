@@ -34,14 +34,14 @@ function getWorkoutsAndExercises() {
   };
 }
 
-// TODO: loads are isomorphic!!!!!
+// TODO: 3. loads are isomorphic!!!!!
 
 export const Route = createFileRoute("/lessons/2/workouts/")({
   component: RouteComponent,
   loader: async () => {
     const { exercises, workouts } = getWorkoutsAndExercises();
 
-    // TODO: Add a console.log statement here
+    // TODO: 4. Add a console.log statement here
     return {
       workouts,
       exercises,
@@ -52,9 +52,9 @@ export const Route = createFileRoute("/lessons/2/workouts/")({
 });
 
 function RouteComponent() {
-  // TODO: load loader data
+  // TODO: 1. load loader data
 
-  // TODO: use getRouteApi
+  // TODO: 2. use getRouteApi
 
   const workouts: any[] = [];
   const exercises: any = [];
