@@ -9,7 +9,7 @@ export const Route = createFileRoute("/lessons/15/")({
   // TODO: 2. move default value to loader
   gcTime: 0,
   staleTime: 0,
-  // TODO: 3. get pending component
+  // TODO: 3. Use pending component
 });
 
 function RouteComponent() {
