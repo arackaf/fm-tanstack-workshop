@@ -15,7 +15,7 @@ export const Route = createFileRoute("/lessons/11/workouts/")({
   },
   loader: async ({ context }) => {
     Promise.all([
-      // todo: use correct page value in server load
+      // TODO: 1. use correct page value in server load
       context.queryClient.ensureQueryData(workoutHistoryQueryOptions()),
       context.queryClient.ensureQueryData(exercisesQueryOptions()),
     ]);
@@ -37,9 +37,8 @@ function RouteComponent() {
 
 function WorkoutsListContent() {
   const { page } = Route.useSearch();
-  // TODO:
+  // TODO: 3. fix suspending on pagination
   const { data: workoutsPayload } = useSuspenseQuery(
-    // TODO:
     workoutHistoryQueryOptions(page),
   );
   const { data: exercises } = useSuspenseQuery(exercisesQueryOptions());
@@ -49,7 +48,7 @@ function WorkoutsListContent() {
     return new Map(exercises.map(exercise => [exercise.id, exercise]));
   }, [exercises]);
 
-  // TODO: fix this
+  // TODO: 4. fix this
   const isPending = false;
 
   return (
@@ -80,7 +79,7 @@ function WorkoutsListContent() {
       <div className="flex gap-2 items-center">
         <Button
           onClick={() => {
-            // TODO: this won't work :(
+            // TODO: 2. this won't work :(
             // startTransition(() => {
             navigate({
               to: "/lessons/11/workouts",
