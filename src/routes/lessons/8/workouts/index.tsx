@@ -29,7 +29,7 @@ function RouteComponent() {
     null,
   );
 
-  // TODO: note queries
+  // TODO: 1. note queries
   const {
     data: exercises,
     isLoading: isExercisesLoading,
@@ -141,10 +141,10 @@ const EditExercise: FC<EditExerciseProps> = props => {
       });
     },
     onSuccess: async () => {
-      // TODO: note invalidation
+      // TODO: 4. note invalidation
       queryClient.invalidateQueries({ queryKey: ["exercises"] });
       queryClient.invalidateQueries({ queryKey: ["workouts"] });
-      // TODO: note the queryKey - we invalidate ALL workouts
+      // TODO: 5. note the queryKey - we invalidate ALL workouts
       queryClient.invalidateQueries({ queryKey: ["workout"], exact: false });
 
       onSaved();
@@ -210,8 +210,8 @@ const ViewWorkout: FC<{ workoutId: number; onDone: () => void }> = props => {
     isLoading,
     isFetching,
   } = useQuery({
-    // TODO: note queryKey - it's hierarchical
-    // TODO: note the caching
+    // TODO: 2. note queryKey - it's hierarchical
+    // TODO: 3. note the caching
     queryKey: ["workout", workoutId],
     queryFn: async () => {
       const result = await getWorkoutsWithExerciseNames({
