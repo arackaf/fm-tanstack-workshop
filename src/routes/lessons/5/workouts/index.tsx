@@ -47,7 +47,7 @@ function RouteComponent() {
 
   // TODO: 2. Then read this from getRouteApi
 
-  // TODO: 3. set up isLayoutFetching
+  // TODO: 4. set up isLayoutFetching
   const isLayoutFetching = false;
 
   // TODO: 5. Set up pathless layout(s)
@@ -189,7 +189,7 @@ const Exercise: FC<{
           });
           setSaving(false);
 
-          // 4. TODO: invalidate the layout
+          // 3. TODO: invalidate the layout
         }}
       >
         Update exercise
