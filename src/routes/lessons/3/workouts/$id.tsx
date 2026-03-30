@@ -7,6 +7,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 // import { getDb } from "@/data/db";
 
 // TODO: implement same server functions here
+// don't forget to return a SINGLE workout
 
 import {
   workout as workoutTable,
