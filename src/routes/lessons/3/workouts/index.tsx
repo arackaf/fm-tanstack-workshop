@@ -30,6 +30,7 @@ const getExercises = () => {
 // TODO: 3. Call with csr and note call in dev tools
 
 export const Route = createFileRoute("/lessons/3/workouts/")({
+  // TODO: 4. Add a pending component and note when it works
   component: RouteComponent,
   loader: async () => {
     const [workouts, exercises] = await Promise.all([
