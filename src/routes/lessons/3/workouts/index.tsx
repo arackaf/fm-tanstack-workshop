@@ -25,6 +25,10 @@ const getExercises = () => {
   ];
 };
 
+// TODO: 1. add server function and call in loader
+// TODO: 2. Call with ssr
+// TODO: 3. Call with csr and note call in dev tools
+
 export const Route = createFileRoute("/lessons/3/workouts/")({
   component: RouteComponent,
   loader: async () => {
