@@ -11,9 +11,9 @@ export const Route = createFileRoute("/lessons/16/")({
 function RouteComponent() {
   return (
     <div className="flex flex-col gap-4">
-      <h1>Static prerendering</h1>
+      <h1>Not found errors</h1>
 
-      <span>And now, for something completely different</span>
+      <span>And how to use them</span>
     </div>
   );
 }
