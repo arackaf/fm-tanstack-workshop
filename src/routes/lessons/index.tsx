@@ -27,7 +27,7 @@ const lessonSummaryHeading: { [key in LessonKey]: string } = {
   3: "Loading data",
   4: "Route caching",
   5: "Data in layouts",
-  6: "Streaming I",
+  6: "Streaming",
   7: "Streaming and Suspense",
   8: "Introducing TanStack Query",
   9: "Integrating TanStack Query",
@@ -37,7 +37,7 @@ const lessonSummaryHeading: { [key in LessonKey]: string } = {
   13: "Advanced Middleware",
   14: "API Routes",
   15: "Selective Hydration",
-  16: "Static Pre-rendering",
+  16: "Not Found Errors",
 };
 
 type PageledLessonKey = "11";
@@ -80,6 +80,12 @@ function RouteComponent() {
             </Link>
           ),
         )}
+        <a
+          href="https://github.com/arackaf/tanstack-blog-blog-post"
+          className="rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm font-semibold text-slate-900 transition hover:border-slate-400 hover:bg-slate-100 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100 dark:hover:border-slate-400 dark:hover:bg-slate-800"
+        >
+          Lesson 17 - Static Pre-rendering
+        </a>
       </div>
     </div>
   );
