@@ -1,7 +1,14 @@
+import { Header } from "@/components/Header";
 import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/app/admin")({
   component: RouteComponent,
+  notFoundComponent: () => (
+    <section>
+      <Header title="Invalid" />
+      <p className="text-muted-foreground">Couldn't find this admin link</p>
+    </section>
+  ),
 });
 
 function RouteComponent() {
