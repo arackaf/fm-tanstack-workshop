@@ -59,7 +59,7 @@ function RouteContent() {
     if (workoutTemplate == null || workoutTemplate.id == null) {
       throw notFound();
     }
-  }, [navigate, workoutTemplate]);
+  }, [workoutTemplate]);
 
   if (workoutTemplate == null || workoutTemplate.id == null) {
     return null;
