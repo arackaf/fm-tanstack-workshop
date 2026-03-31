@@ -1,7 +1,7 @@
 import { useEffect, useState, type FC } from "react";
 
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { createFileRoute, redirect } from "@tanstack/react-router";
+import { createFileRoute, notFound, redirect } from "@tanstack/react-router";
 
 import type { Exercise } from "@/components/ExerciseSelector";
 import { SuspensePageLayout } from "@/components/SuspensePageLayout";
@@ -16,16 +16,14 @@ import {
 } from "@/server-functions/workout-templates";
 import { muscleGroupsQueryOptions } from "@/server-functions/muscle-groups";
 import type { MuscleGroup } from "@/data/types";
+import { Header } from "@/components/Header";
 
 export const Route = createFileRoute("/app/admin/workout-templates/edit/$id/")({
   loader: ({ context, params }) => {
     const workoutTemplateId = Number(params.id);
 
     if (Number.isNaN(workoutTemplateId)) {
-      throw redirect({
-        to: "/app/admin/workout-templates/edit/invalid",
-        replace: true,
-      });
+      throw notFound();
     }
 
     context.queryClient.ensureQueryData(
@@ -35,6 +33,14 @@ export const Route = createFileRoute("/app/admin/workout-templates/edit/$id/")({
     context.queryClient.ensureQueryData(muscleGroupsQueryOptions());
   },
   component: RouteComponent,
+  notFoundComponent: () => (
+    <section>
+      <Header title="Workout Template Not Found" />
+      <p className="text-muted-foreground">
+        Could not find this workout template
+      </p>
+    </section>
+  ),
 });
 
 function RouteComponent() {
@@ -53,15 +59,13 @@ function RouteContent() {
   const { data: workoutTemplate } = useSuspenseQuery(
     workoutTemplateByIdQueryOptions(workoutTemplateId),
   );
+
   const { data: exercises } = useSuspenseQuery(exercisesQueryOptions());
   const { data: muscleGroups } = useSuspenseQuery(muscleGroupsQueryOptions());
 
   useEffect(() => {
     if (workoutTemplate == null || workoutTemplate.id == null) {
-      void navigate({
-        to: "/app/admin/workout-templates/edit/not-found",
-        replace: true,
-      });
+      throw notFound();
     }
   }, [navigate, workoutTemplate]);
 
