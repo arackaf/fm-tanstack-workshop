@@ -9,7 +9,7 @@ import { DELAY_MS } from "@/APPLICATION-SETTINGS";
 import { loggingMiddleware } from "@/middleware/logging-full";
 
 export const getExercisesServerFn = createServerFn({ method: "GET" })
-  .middleware([loggingMiddleware])
+  // .middleware([loggingMiddleware])
   .handler(async () => {
     return getExercises();
   });
@@ -18,7 +18,7 @@ export const exercisesQueryOptions = () =>
   queryOptions({
     queryKey: ["exercises"],
     queryFn: () => {
-      return getExercisesServerFn({ data: { operation: "load-exercises" } });
+      return getExercisesServerFn();
     },
     staleTime: 1000 * 60 * 5,
     gcTime: 1000 * 60 * 5,

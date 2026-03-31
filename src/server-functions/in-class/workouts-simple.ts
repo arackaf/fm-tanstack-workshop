@@ -20,7 +20,7 @@ export const workoutHistoryQueryOptions = (page: number = 1) => {
     queryKey: ["workouts", page],
     queryFn: () => {
       return getInClassWorkoutHistoryServerFn({
-        data: { page, operation: "load-workouts" },
+        data: { page },
       });
     },
     staleTime: 1000 * 60 * 5,
@@ -36,7 +36,7 @@ export const getInClassWorkoutHistoryServerFn = createServerFn({
   method: "GET",
 })
   .inputValidator((input: { page?: number }) => input)
-  .middleware([loggingMiddleware])
+  // .middleware([loggingMiddleware])
   .handler(async ({ data }) => {
     const payload = await getWorkouts({
       page: data?.page ?? 1,
