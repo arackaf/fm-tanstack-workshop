@@ -2,7 +2,7 @@ import { Input } from "@/components/ui/input";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 
-export const Route = createFileRoute("/lessons/16/")({
+export const Route = createFileRoute("/lessons/2A/")({
   component: RouteComponent,
   gcTime: 0,
   staleTime: 0,
