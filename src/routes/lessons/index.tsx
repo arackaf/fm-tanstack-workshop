@@ -19,8 +19,7 @@ type LessonKey =
   | "12"
   | "13"
   | "14"
-  | "15"
-  | "16";
+  | "15";
 const lessonSummaryHeading: { [key in LessonKey]: string } = {
   1: "Routing",
   2: "Loaders",
@@ -37,11 +36,10 @@ const lessonSummaryHeading: { [key in LessonKey]: string } = {
   13: "Advanced Middleware",
   14: "API Routes",
   15: "Selective Hydration",
-  16: "Not Found Errors",
 };
 
 type PageledLessonKey = "11";
-type PagesWithIndex = "15" | "16";
+type PagesWithIndex = "15" | "2A";
 type PagelessLessonKey = Exclude<LessonKey, PageledLessonKey | PagesWithIndex>;
 
 function RouteComponent() {
@@ -50,17 +48,7 @@ function RouteComponent() {
       <h1 className="text-3xl font-extrabold tracking-tight">Lessons</h1>
       <div className="flex flex-col gap-2">
         {Object.entries(lessonSummaryHeading).map(([idx, desc]) =>
-          idx === "11" ? (
-            <Link
-              to={`/lessons/${idx as PageledLessonKey}/workouts`}
-              search={{ page: 1 }}
-              preload={false}
-              className="rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm font-semibold text-slate-900 transition hover:border-slate-400 hover:bg-slate-100 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100 dark:hover:border-slate-400 dark:hover:bg-slate-800"
-              key={idx}
-            >
-              Lesson {idx} - {desc}
-            </Link>
-          ) : idx === "15" || idx === "16" ? (
+          idx === "15" ? (
             <Link
               to={`/lessons/${idx}`}
               preload={false}
@@ -69,6 +57,25 @@ function RouteComponent() {
             >
               Lesson {idx} - {desc}
             </Link>
+          ) : idx === "2" ? (
+            <>
+              <Link
+                to={`/lessons/${idx as PagelessLessonKey}/workouts`}
+                preload={false}
+                className="rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm font-semibold text-slate-900 transition hover:border-slate-400 hover:bg-slate-100 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100 dark:hover:border-slate-400 dark:hover:bg-slate-800"
+                key={idx}
+              >
+                Lesson {idx} - {desc}
+              </Link>
+              <Link
+                to={`/lessons/2A`}
+                preload={false}
+                className="rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm font-semibold text-slate-900 transition hover:border-slate-400 hover:bg-slate-100 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100 dark:hover:border-slate-400 dark:hover:bg-slate-800"
+                key={idx}
+              >
+                Lesson 2A - Not Found Errors
+              </Link>
+            </>
           ) : (
             <Link
               to={`/lessons/${idx as PagelessLessonKey}/workouts`}
@@ -84,7 +91,7 @@ function RouteComponent() {
           href="https://github.com/arackaf/tanstack-blog-blog-post"
           className="rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm font-semibold text-slate-900 transition hover:border-slate-400 hover:bg-slate-100 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100 dark:hover:border-slate-400 dark:hover:bg-slate-800"
         >
-          Lesson 17 - Static Pre-rendering
+          Lesson 16 - Static Pre-rendering
         </a>
       </div>
     </div>
