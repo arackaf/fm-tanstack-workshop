@@ -329,37 +329,82 @@ FROM (
 
 INSERT INTO workout_template (name, description)
 VALUES
-  ('Workout tempalte_1', 'Template workout 1 with two single-exercise segments.'),
-  ('Workout tempalte_2', 'Template workout 2 with two single-exercise segments.'),
-  ('Workout tempalte_3', 'Template workout 3 with two single-exercise segments.'),
-  ('Workout tempalte_4', 'Template workout 4 with two single-exercise segments.'),
-  ('Workout tempalte_5', 'Template workout 5 with two single-exercise segments.'),
-  ('Workout tempalte_6', 'Template workout 6 with two single-exercise segments.'),
-  ('Workout tempalte_7', 'Template workout 7 with two single-exercise segments.'),
-  ('Workout tempalte_8', 'Template workout 8 with two single-exercise segments.'),
-  ('Workout tempalte_9', 'Template workout 9 with two single-exercise segments.'),
-  ('Workout tempalte_10', 'Template workout 10 with two single-exercise segments.');
+  ('Back Day', 'Back-focused day with a two-exercise opening compound set followed by focused back accessory work.'),
+  ('Chest Day', 'Chest-focused day with a two-exercise opening compound set followed by chest isolation work.'),
+  ('Arms Day', 'Biceps and triceps day with a two-exercise opening compound set and arm accessory work.'),
+  ('Legs Day', 'Lower-body day with a two-exercise opening compound set followed by unilateral and machine work.'),
+  ('Shoulders Day', 'Shoulder-focused day with a two-exercise opening compound set followed by delt accessory work.'),
+  ('Push Day', 'Push-focused day for chest, shoulders, and triceps with a two-exercise opening set.'),
+  ('Pull Day', 'Pull-focused day for back and biceps with a two-exercise opening set.'),
+  ('Lower Body Day', 'Lower-body strength day with a two-exercise opening set followed by leg accessory work.');
 
 INSERT INTO workout_template_segment (workout_template_id, segment_order, sets)
-SELECT wt.id, seed.segment_order, 4
+SELECT wt.id, seed.segment_order, seed.sets
 FROM workout_template wt
 JOIN (
   VALUES
-    (1),
-    (2)
-) AS seed(segment_order) ON true
-WHERE wt.name LIKE 'Workout tempalte_%';
+    ('Back Day', 1, 5),
+    ('Back Day', 2, 4),
+    ('Back Day', 3, 3),
+    ('Back Day', 4, 4),
+    ('Back Day', 5, 3),
+
+    ('Chest Day', 1, 4),
+    ('Chest Day', 2, 4),
+    ('Chest Day', 3, 3),
+    ('Chest Day', 4, 4),
+    ('Chest Day', 5, 3),
+
+    ('Arms Day', 1, 4),
+    ('Arms Day', 2, 3),
+    ('Arms Day', 3, 3),
+    ('Arms Day', 4, 4),
+    ('Arms Day', 5, 3),
+
+    ('Legs Day', 1, 5),
+    ('Legs Day', 2, 4),
+    ('Legs Day', 3, 4),
+    ('Legs Day', 4, 3),
+    ('Legs Day', 5, 4),
+
+    ('Shoulders Day', 1, 4),
+    ('Shoulders Day', 2, 3),
+    ('Shoulders Day', 3, 3),
+    ('Shoulders Day', 4, 4),
+    ('Shoulders Day', 5, 3),
+
+    ('Push Day', 1, 4),
+    ('Push Day', 2, 4),
+    ('Push Day', 3, 3),
+    ('Push Day', 4, 3),
+    ('Push Day', 5, 4),
+
+    ('Pull Day', 1, 5),
+    ('Pull Day', 2, 4),
+    ('Pull Day', 3, 3),
+    ('Pull Day', 4, 4),
+    ('Pull Day', 5, 3),
+
+    ('Lower Body Day', 1, 5),
+    ('Lower Body Day', 2, 4),
+    ('Lower Body Day', 3, 3),
+    ('Lower Body Day', 4, 4),
+    ('Lower Body Day', 5, 3)
+) AS seed(template_name, segment_order, sets)
+  ON seed.template_name = wt.name;
 
 INSERT INTO workout_template_segment_exercise (
   workout_template_segment_id,
   exercise_order,
   exercise_id,
+  execution_type,
   exercise_weight_unit
 )
 SELECT
   wts.id,
-  1,
+  seed.exercise_order,
   seed.exercise_id,
+  ex.execution_type,
   CASE
     WHEN NOT ex.is_bodyweight AND ex.execution_type = 'repetition' THEN 'lbs'::exercise_weight_unit
     ELSE NULL
@@ -368,31 +413,66 @@ FROM workout_template wt
 JOIN workout_template_segment wts ON wts.workout_template_id = wt.id
 JOIN (
   VALUES
-    ('Workout tempalte_1', 1, 2),
-    ('Workout tempalte_1', 2, 45),
-    ('Workout tempalte_2', 1, 11),
-    ('Workout tempalte_2', 2, 33),
-    ('Workout tempalte_3', 1, 6),
-    ('Workout tempalte_3', 2, 48),
-    ('Workout tempalte_4', 1, 19),
-    ('Workout tempalte_4', 2, 26),
-    ('Workout tempalte_5', 1, 9),
-    ('Workout tempalte_5', 2, 50),
-    ('Workout tempalte_6', 1, 14),
-    ('Workout tempalte_6', 2, 37),
-    ('Workout tempalte_7', 1, 8),
-    ('Workout tempalte_7', 2, 41),
-    ('Workout tempalte_8', 1, 5),
-    ('Workout tempalte_8', 2, 29),
-    ('Workout tempalte_9', 1, 16),
-    ('Workout tempalte_9', 2, 47),
-    ('Workout tempalte_10', 1, 3),
-    ('Workout tempalte_10', 2, 44)
-) AS seed(template_name, segment_order, exercise_id)
+    ('Back Day', 1, 1, 49),
+    ('Back Day', 1, 2, 48),
+    ('Back Day', 2, 1, 51),
+    ('Back Day', 3, 1, 52),
+    ('Back Day', 4, 1, 53),
+    ('Back Day', 5, 1, 55),
+
+    ('Chest Day', 1, 1, 1),
+    ('Chest Day', 1, 2, 2),
+    ('Chest Day', 2, 1, 8),
+    ('Chest Day', 3, 1, 5),
+    ('Chest Day', 4, 1, 6),
+    ('Chest Day', 5, 1, 9),
+
+    ('Arms Day', 1, 1, 56),
+    ('Arms Day', 1, 2, 65),
+    ('Arms Day', 2, 1, 57),
+    ('Arms Day', 3, 1, 58),
+    ('Arms Day', 4, 1, 67),
+    ('Arms Day', 5, 1, 68),
+
+    ('Legs Day', 1, 1, 11),
+    ('Legs Day', 1, 2, 21),
+    ('Legs Day', 2, 1, 15),
+    ('Legs Day', 3, 1, 14),
+    ('Legs Day', 4, 1, 18),
+    ('Legs Day', 5, 1, 28),
+
+    ('Shoulders Day', 1, 1, 36),
+    ('Shoulders Day', 1, 2, 38),
+    ('Shoulders Day', 2, 1, 37),
+    ('Shoulders Day', 3, 1, 39),
+    ('Shoulders Day', 4, 1, 40),
+    ('Shoulders Day', 5, 1, 41),
+
+    ('Push Day', 1, 1, 1),
+    ('Push Day', 1, 2, 36),
+    ('Push Day', 2, 1, 2),
+    ('Push Day', 3, 1, 8),
+    ('Push Day', 4, 1, 63),
+    ('Push Day', 5, 1, 67),
+
+    ('Pull Day', 1, 1, 49),
+    ('Pull Day', 1, 2, 48),
+    ('Pull Day', 2, 1, 50),
+    ('Pull Day', 3, 1, 51),
+    ('Pull Day', 4, 1, 56),
+    ('Pull Day', 5, 1, 58),
+
+    ('Lower Body Day', 1, 1, 12),
+    ('Lower Body Day', 1, 2, 25),
+    ('Lower Body Day', 2, 1, 13),
+    ('Lower Body Day', 3, 1, 19),
+    ('Lower Body Day', 4, 1, 27),
+    ('Lower Body Day', 5, 1, 31)
+) AS seed(template_name, segment_order, exercise_order, exercise_id)
   ON seed.template_name = wt.name
  AND seed.segment_order = wts.segment_order
 JOIN exercises ex ON ex.id = seed.exercise_id
-WHERE NOT ex.is_bodyweight;
+WHERE ex.execution_type = 'repetition';
 
 INSERT INTO workout_template_segment_exercise_measurement (
   workout_template_segment_exercise_id,
@@ -403,45 +483,32 @@ INSERT INTO workout_template_segment_exercise_measurement (
 )
 SELECT
   wtse.id,
-  reps_seed.ord::INT,
-  reps_seed.rep,
+  set_seed.set_order,
+  8 + ((set_seed.set_order + wtse.exercise_id + wts.segment_order) % 5),
   false,
-  135
+  CASE
+    WHEN ex.is_compound THEN 135
+    ELSE 55
+  END
 FROM workout_template wt
 JOIN workout_template_segment wts ON wts.workout_template_id = wt.id
-JOIN (
-  VALUES
-    ('Workout tempalte_1', 1, 2),
-    ('Workout tempalte_1', 2, 45),
-    ('Workout tempalte_2', 1, 11),
-    ('Workout tempalte_2', 2, 33),
-    ('Workout tempalte_3', 1, 6),
-    ('Workout tempalte_3', 2, 48),
-    ('Workout tempalte_4', 1, 19),
-    ('Workout tempalte_4', 2, 26),
-    ('Workout tempalte_5', 1, 9),
-    ('Workout tempalte_5', 2, 50),
-    ('Workout tempalte_6', 1, 14),
-    ('Workout tempalte_6', 2, 37),
-    ('Workout tempalte_7', 1, 8),
-    ('Workout tempalte_7', 2, 41),
-    ('Workout tempalte_8', 1, 5),
-    ('Workout tempalte_8', 2, 29),
-    ('Workout tempalte_9', 1, 16),
-    ('Workout tempalte_9', 2, 47),
-    ('Workout tempalte_10', 1, 3),
-    ('Workout tempalte_10', 2, 44)
-) AS seed(template_name, segment_order, exercise_id)
-  ON seed.template_name = wt.name
- AND seed.segment_order = wts.segment_order
 JOIN workout_template_segment_exercise wtse
   ON wtse.workout_template_segment_id = wts.id
- AND wtse.exercise_order = 1
- AND wtse.exercise_id = seed.exercise_id
-JOIN exercises ex ON ex.id = seed.exercise_id
-JOIN LATERAL unnest(ARRAY[8, 8, 8, 8]) WITH ORDINALITY AS reps_seed(rep, ord)
-  ON true
-WHERE NOT ex.is_bodyweight
+JOIN exercises ex ON ex.id = wtse.exercise_id
+JOIN LATERAL (
+  SELECT gs::INT AS set_order
+  FROM generate_series(1, wts.sets) AS gs
+) AS set_seed ON true
+WHERE wt.name IN (
+  'Back Day',
+  'Chest Day',
+  'Arms Day',
+  'Legs Day',
+  'Shoulders Day',
+  'Push Day',
+  'Pull Day',
+  'Lower Body Day'
+)
   AND ex.execution_type = 'repetition';
 
 -- ================================================================================
