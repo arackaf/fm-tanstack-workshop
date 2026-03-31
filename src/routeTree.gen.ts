@@ -15,7 +15,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as LessonsIndexRouteImport } from './routes/lessons/index'
 import { Route as AppIndexRouteImport } from './routes/app/index'
 import { Route as AppAdminRouteRouteImport } from './routes/app/admin/route'
-import { Route as Lessons16IndexRouteImport } from './routes/lessons/16/index'
+import { Route as Lessons2AIndexRouteImport } from './routes/lessons/2A/index'
 import { Route as Lessons15IndexRouteImport } from './routes/lessons/15/index'
 import { Route as AppWorkoutsIndexRouteImport } from './routes/app/workouts/index'
 import { Route as AppMeasurementsIndexRouteImport } from './routes/app/measurements/index'
@@ -90,9 +90,9 @@ const AppAdminRouteRoute = AppAdminRouteRouteImport.update({
   path: '/admin',
   getParentRoute: () => AppRouteRoute,
 } as any)
-const Lessons16IndexRoute = Lessons16IndexRouteImport.update({
-  id: '/16/',
-  path: '/16/',
+const Lessons2AIndexRoute = Lessons2AIndexRouteImport.update({
+  id: '/2A/',
+  path: '/2A/',
   getParentRoute: () => LessonsRouteRoute,
 } as any)
 const Lessons15IndexRoute = Lessons15IndexRouteImport.update({
@@ -336,7 +336,7 @@ export interface FileRoutesByFullPath {
   '/app/measurements/': typeof AppMeasurementsIndexRoute
   '/app/workouts/': typeof AppWorkoutsIndexRoute
   '/lessons/15/': typeof Lessons15IndexRoute
-  '/lessons/16/': typeof Lessons16IndexRoute
+  '/lessons/2A/': typeof Lessons2AIndexRoute
   '/lessons/1/workouts/$id': typeof Lessons1WorkoutsIdRoute
   '/lessons/10/workouts/$id': typeof Lessons10WorkoutsIdRoute
   '/lessons/11/workouts/$id': typeof Lessons11WorkoutsIdRoute
@@ -384,7 +384,7 @@ export interface FileRoutesByTo {
   '/app/measurements': typeof AppMeasurementsIndexRoute
   '/app/workouts': typeof AppWorkoutsIndexRoute
   '/lessons/15': typeof Lessons15IndexRoute
-  '/lessons/16': typeof Lessons16IndexRoute
+  '/lessons/2A': typeof Lessons2AIndexRoute
   '/lessons/1/workouts/$id': typeof Lessons1WorkoutsIdRoute
   '/lessons/10/workouts/$id': typeof Lessons10WorkoutsIdRoute
   '/lessons/11/workouts/$id': typeof Lessons11WorkoutsIdRoute
@@ -437,7 +437,7 @@ export interface FileRoutesById {
   '/app/measurements/': typeof AppMeasurementsIndexRoute
   '/app/workouts/': typeof AppWorkoutsIndexRoute
   '/lessons/15/': typeof Lessons15IndexRoute
-  '/lessons/16/': typeof Lessons16IndexRoute
+  '/lessons/2A/': typeof Lessons2AIndexRoute
   '/lessons/1/workouts/$id': typeof Lessons1WorkoutsIdRoute
   '/lessons/10/workouts/$id': typeof Lessons10WorkoutsIdRoute
   '/lessons/11/workouts/$id': typeof Lessons11WorkoutsIdRoute
@@ -491,7 +491,7 @@ export interface FileRouteTypes {
     | '/app/measurements/'
     | '/app/workouts/'
     | '/lessons/15/'
-    | '/lessons/16/'
+    | '/lessons/2A/'
     | '/lessons/1/workouts/$id'
     | '/lessons/10/workouts/$id'
     | '/lessons/11/workouts/$id'
@@ -539,7 +539,7 @@ export interface FileRouteTypes {
     | '/app/measurements'
     | '/app/workouts'
     | '/lessons/15'
-    | '/lessons/16'
+    | '/lessons/2A'
     | '/lessons/1/workouts/$id'
     | '/lessons/10/workouts/$id'
     | '/lessons/11/workouts/$id'
@@ -591,7 +591,7 @@ export interface FileRouteTypes {
     | '/app/measurements/'
     | '/app/workouts/'
     | '/lessons/15/'
-    | '/lessons/16/'
+    | '/lessons/2A/'
     | '/lessons/1/workouts/$id'
     | '/lessons/10/workouts/$id'
     | '/lessons/11/workouts/$id'
@@ -678,11 +678,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppAdminRouteRouteImport
       parentRoute: typeof AppRouteRoute
     }
-    '/lessons/16/': {
-      id: '/lessons/16/'
-      path: '/16'
-      fullPath: '/lessons/16/'
-      preLoaderRoute: typeof Lessons16IndexRouteImport
+    '/lessons/2A/': {
+      id: '/lessons/2A/'
+      path: '/2A'
+      fullPath: '/lessons/2A/'
+      preLoaderRoute: typeof Lessons2AIndexRouteImport
       parentRoute: typeof LessonsRouteRoute
     }
     '/lessons/15/': {
@@ -1060,7 +1060,7 @@ interface LessonsRouteRouteChildren {
   LessonsIndexRoute: typeof LessonsIndexRoute
   Lessons5WorkoutsRouteRoute: typeof Lessons5WorkoutsRouteRouteWithChildren
   Lessons15IndexRoute: typeof Lessons15IndexRoute
-  Lessons16IndexRoute: typeof Lessons16IndexRoute
+  Lessons2AIndexRoute: typeof Lessons2AIndexRoute
   Lessons1WorkoutsIdRoute: typeof Lessons1WorkoutsIdRoute
   Lessons10WorkoutsIdRoute: typeof Lessons10WorkoutsIdRoute
   Lessons11WorkoutsIdRoute: typeof Lessons11WorkoutsIdRoute
@@ -1093,7 +1093,7 @@ const LessonsRouteRouteChildren: LessonsRouteRouteChildren = {
   LessonsIndexRoute: LessonsIndexRoute,
   Lessons5WorkoutsRouteRoute: Lessons5WorkoutsRouteRouteWithChildren,
   Lessons15IndexRoute: Lessons15IndexRoute,
-  Lessons16IndexRoute: Lessons16IndexRoute,
+  Lessons2AIndexRoute: Lessons2AIndexRoute,
   Lessons1WorkoutsIdRoute: Lessons1WorkoutsIdRoute,
   Lessons10WorkoutsIdRoute: Lessons10WorkoutsIdRoute,
   Lessons11WorkoutsIdRoute: Lessons11WorkoutsIdRoute,
