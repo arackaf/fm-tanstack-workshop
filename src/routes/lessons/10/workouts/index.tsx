@@ -51,10 +51,10 @@ function WorkoutsListContent() {
 
   //TODO: 3. fix this
   const { data: workoutsPayload } = useQuery(workoutHistoryQueryOptions(page));
-  const { data: exercises, isFetching: isExercisesFetching } = useQuery(
-    exercisesQueryOptions(),
-  );
+  const { data: exercises } = useQuery(exercisesQueryOptions());
 
+  // TODO: 5 wire this up
+  const isExercisesFetching = false;
   const isPending = false;
   const exerciseLookup = useMemo(() => {
     return new Map(exercises.map(exercise => [exercise.id, exercise]));
@@ -101,7 +101,7 @@ function WorkoutsListContent() {
       <div className="flex gap-2 items-center">
         <Button
           onClick={() => {
-            // TODO: 5. make this not suspend
+            // TODO: 6. make this not suspend
             setPage(currentPage => currentPage - 1);
           }}
           disabled={workoutsPayload.page <= 1}
@@ -110,7 +110,7 @@ function WorkoutsListContent() {
         </Button>
         <Button
           onClick={() => {
-            // TODO: 6. ditto this
+            // TODO: 6a. ditto this
             setPage(currentPage => currentPage + 1);
           }}
           disabled={!workoutsPayload.hasNextPage}
