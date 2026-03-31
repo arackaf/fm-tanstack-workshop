@@ -111,7 +111,7 @@ export const getWorkoutTemplates = async (
     )
     .where(conditions.length > 0 ? and(...conditions) : undefined)
     .orderBy(
-      desc(workoutTemplateTable.id),
+      asc(workoutTemplateTable.id),
       asc(workoutTemplateSegmentTable.segmentOrder),
       asc(workoutTemplateSegmentExerciseTable.exerciseOrder),
       asc(workoutTemplateSegmentExerciseMeasurementTable.setOrder),
