@@ -33,14 +33,14 @@ export const Route = createFileRoute("/app/admin/workout-templates/edit/$id/")({
     context.queryClient.ensureQueryData(muscleGroupsQueryOptions());
   },
   component: RouteComponent,
-  notFoundComponent: () => (
-    <section>
-      <Header title="Workout Template Not Found" />
-      <p className="text-muted-foreground">
-        Could not find this workout template
-      </p>
-    </section>
-  ),
+  // notFoundComponent: () => (
+  //   <section>
+  //     <Header title="Workout Template Not Found" />
+  //     <p className="text-muted-foreground">
+  //       Could not find this workout template
+  //     </p>
+  //   </section>
+  // ),
 });
 
 function RouteComponent() {
