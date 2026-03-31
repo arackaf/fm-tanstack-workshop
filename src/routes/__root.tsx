@@ -2,6 +2,7 @@ import {
   HeadContent,
   Scripts,
   createRootRouteWithContext,
+  useRouterState,
 } from "@tanstack/react-router";
 
 import { ThemeProvider } from "../components/theme-provider";
@@ -41,8 +42,12 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 });
 
 function RootDocument({ children }: { children: React.ReactNode }) {
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
+  const isLessonsRoute =
+    pathname === "/lessons" || pathname.startsWith("/lessons/");
+
   return (
-    <html lang="en" className={DARK_MODE ? "dark" : ""}>
+    <html lang="en" className={DARK_MODE && !isLessonsRoute ? "dark" : ""}>
       <head>
         <HeadContent />
       </head>
