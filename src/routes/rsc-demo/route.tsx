@@ -9,6 +9,10 @@ import {
   CompositeComponent,
 } from "@tanstack/react-start/rsc";
 
+const getLayout = createServerFn({
+  method: "GET",
+}).handler(async () => {});
+
 export const Route = createFileRoute("/rsc-demo")({
   component: RouteComponent,
   loader: async () => {
