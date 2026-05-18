@@ -9,18 +9,10 @@ import {
   CompositeComponent,
 } from "@tanstack/react-start/rsc";
 
-const getLayout = createServerFn({
-  method: "GET",
-}).handler(async () => {
-  return createCompositeComponent((props: PropsWithChildren) => (
-    <RscLayout>{props.children}</RscLayout>
-  ));
-});
-
 export const Route = createFileRoute("/rsc-demo")({
   component: RouteComponent,
   loader: async () => {
-    const layout = await getLayout();
+    const layout = null;
 
     return { layout };
   },
@@ -33,10 +25,8 @@ export const Route = createFileRoute("/rsc-demo")({
 function RouteComponent() {
   const { layout } = Route.useLoaderData();
   return (
-    <CompositeComponent src={layout}>
-      <div className="mx-auto w-full max-w-xl rounded-xl border border-slate-200 p-6 shadow-sm">
-        <Outlet />
-      </div>
-    </CompositeComponent>
+    <div className="mx-auto w-full max-w-xl rounded-xl border border-slate-200 p-6 shadow-sm">
+      <Outlet />
+    </div>
   );
 }
