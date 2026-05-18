@@ -1,11 +1,16 @@
+import { getDb } from "@/data/db";
+import { users as usersTable } from "@/drizzle/schema";
+
 export const UserInfo = async () => {
-  const name = "Adam";
-  const avatar = "https://d193qjyckdxivp.cloudfront.net/avatar.jpg";
+  const db = await getDb();
+  const [user] = await db.select().from(usersTable).limit(1);
+
+  const { name, avatar } = user!;
 
   return (
     <div className="flex items-center gap-3 h-[52px] w-36 rounded-xl bg-black/15 px-3 py-2 ring-1 ring-white/25 backdrop-blur-sm">
       <img
-        src={avatar}
+        src={avatar!}
         alt=""
         width={32}
         height={32}
