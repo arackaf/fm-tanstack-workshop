@@ -16,7 +16,7 @@ const getLayout = createServerFn({
 export const Route = createFileRoute("/rsc-demo")({
   component: RouteComponent,
   loader: async () => {
-    const layout = null;
+    const layout = await getLayout();
 
     return { layout };
   },
