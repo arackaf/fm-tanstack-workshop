@@ -11,7 +11,11 @@ import {
 
 const getLayout = createServerFn({
   method: "GET",
-}).handler(async () => {});
+}).handler(async () => {
+  return createCompositeComponent((props: PropsWithChildren) => {
+    return <RscLayout>{props.children}</RscLayout>;
+  });
+});
 
 export const Route = createFileRoute("/rsc-demo")({
   component: RouteComponent,
@@ -29,8 +33,10 @@ export const Route = createFileRoute("/rsc-demo")({
 function RouteComponent() {
   const { layout } = Route.useLoaderData();
   return (
-    <div className="mx-auto w-full max-w-xl rounded-xl border border-slate-200 p-6 shadow-sm">
-      <Outlet />
-    </div>
+    <CompositeComponent src={layout}>
+      <div className="mx-auto w-full max-w-xl rounded-xl border border-slate-200 p-6 shadow-sm">
+        <Outlet />
+      </div>
+    </CompositeComponent>
   );
 }
