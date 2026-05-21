@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import { UserInfo } from "./user-info";
 
 type RscLayoutProps = {
-  children: ReactNode;
+  children?: ReactNode;
 };
 
 export function RscLayout({ children }: RscLayoutProps) {
