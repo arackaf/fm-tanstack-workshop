@@ -1,6 +1,8 @@
-Welcome to TanStack Jacked!
+# TanStack Start & TanStack Query Course
 
-# Getting Started
+This is a companion repo for the [Master.dev TanStack Start & TanStack Query course](https://master.dev/courses/tanstack/).
+
+## Getting Started
 
 Make sure you have Docker Desktop running (install it if needed).
 
@@ -25,7 +27,7 @@ npm install
 npm run dev
 ```
 
-# Building For Production
+## Building For Production
 
 To build this application for production:
 
@@ -33,6 +35,4 @@ To build this application for production:
 npm run build
 ```
 
-# Bringing your own Database
 
-TODO:
